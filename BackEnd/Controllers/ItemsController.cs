@@ -61,7 +61,24 @@ public class ItemsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(item);
+        return Ok(new
+        {
+            item.Id,
+            item.Title,
+            item.Description,
+            item.StartingPrice,
+            item.StartTime,
+            item.EndTime,
+            item.IsAuctionLive,
+            Bids = item.Bids.Select(b => new
+            {
+                b.Id,
+                b.Amount,
+                b.BidTime,
+                b.BidderId,
+                b.IsHighest
+            })
+        });
     }
 
     // POST /api/items/{id}/bids
