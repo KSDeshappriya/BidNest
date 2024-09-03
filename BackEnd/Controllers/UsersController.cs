@@ -46,6 +46,19 @@ public class UsersController : ControllerBase
             return Unauthorized("Invalid credentials");
         }
 
-        return Ok(new { user.Id, user.UserName, user.Email, user.Role });
+        // Set user session
+        HttpContext.Session.SetInt32("UserId", user.Id);
+        HttpContext.Session.SetString("UserRole", user.Role);
+
+        return Ok("Login successful");
+    }
+
+    // POST /api/users/logout
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        // Clear the session
+        HttpContext.Session.Clear();
+        return Ok("Logout successful");
     }
 }

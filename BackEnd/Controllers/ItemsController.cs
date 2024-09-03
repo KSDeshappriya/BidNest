@@ -61,6 +61,13 @@ public class ItemsController : ControllerBase
     [HttpPost("{id}/bids")]
     public async Task<IActionResult> PlaceBid(int id, BidCreateDto dto)
     {
+        // Check if user is logged in
+        var userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return Unauthorized("You must be logged in to place a bid.");
+        }
+        
         var item = await _context.Items.Include(i => i.Bids).FirstOrDefaultAsync(i => i.Id == id);
         if (item == null || !item.IsAuctionLive)
         {
