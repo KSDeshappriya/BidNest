@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BidNest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240903181956_AddFeedback")]
+    partial class AddFeedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,15 +64,15 @@ namespace BidNest.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BidId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comments")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateGiven")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -79,7 +82,7 @@ namespace BidNest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("BidId");
 
                     b.HasIndex("UserId");
 
@@ -203,9 +206,9 @@ namespace BidNest.Migrations
 
             modelBuilder.Entity("BidNest.Models.Feedback", b =>
                 {
-                    b.HasOne("BidNest.Models.Item", "Item")
+                    b.HasOne("BidNest.Models.Bid", "Bid")
                         .WithMany()
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("BidId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -215,7 +218,7 @@ namespace BidNest.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Item");
+                    b.Navigation("Bid");
 
                     b.Navigation("User");
                 });
