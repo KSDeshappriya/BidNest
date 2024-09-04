@@ -16,7 +16,7 @@ public class FeedbackController : ControllerBase
     }
 
     // Submit feedback for a item's bid
-    // POST: api/Feedback/5
+    // POST: api/Feedback/{item-id}
     [HttpPost("{itemId}")]
     public async Task<IActionResult> SubmitFeedback(int itemId, FeedbackCreateDto feedbackDto)
     {
@@ -48,7 +48,7 @@ public class FeedbackController : ControllerBase
     }
 
     // Get feedback for a item's bid
-    // GET: api/Feedback/5
+    // GET: api/Feedback/{item-id}
     [HttpGet("{itemId}")]
     public IActionResult GetFeedback(int itemId)
     {
