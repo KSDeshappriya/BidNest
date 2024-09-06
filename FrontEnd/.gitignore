@@ -1,0 +1,15 @@
+# Packages
+node_modules/
+yarn.lock
+npm-debug.log
+
+# Build
+dist/
+build/
+coverage/
+
+# IDE files
+*.iml
+.idea/
+.vscode/
+.DS_Store
