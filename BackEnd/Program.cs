@@ -1,23 +1,12 @@
 using BidNest.Services;
 using Microsoft.EntityFrameworkCore;
-using BidNest.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
-
-// Read SMTP settings from configuration
-var smtpSettings = builder.Configuration.GetSection("SmtpSettings").Get<SmtpSettings>();
-
-// Register NotificationService with SMTP settings
-builder.Services.AddScoped<NotificationService>(sp => new NotificationService(
-    smtpSettings.Host,
-    smtpSettings.Port,
-    smtpSettings.Username,
-    smtpSettings.Password
-));
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
