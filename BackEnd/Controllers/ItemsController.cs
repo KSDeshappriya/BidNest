@@ -129,4 +129,27 @@ public class ItemsController : ControllerBase
 
         return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
     }
+
+    // Get bid history for an item
+    // GET: api/Items/{itemId}/bids
+    [HttpGet("{itemId}/bids")]
+    public IActionResult GetBidHistory(int itemId)
+    {
+        var bids = _context.Bids
+            .Where(b => b.ItemId == itemId)
+            .Select(b => new
+            {
+                b.Amount,
+                b.BidTime,
+                BidderName = b.Bidder.UserName,
+                b.IsHighest
+            }).ToList();
+
+        if (bids == null || bids.Count == 0)
+        {
+            return NotFound("No bids found for this item.");
+        }
+
+        return Ok(bids);
+    }
 }
