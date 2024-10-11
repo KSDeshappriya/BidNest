@@ -24,12 +24,12 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
-      "no-unused-vars": ["warn", { "varsIgnorePattern": "^React$" }],
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
+      "no-unused-vars": ["warn", { "varsIgnorePattern": "^React$" }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
