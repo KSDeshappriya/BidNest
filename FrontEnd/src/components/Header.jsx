@@ -50,8 +50,8 @@ const Header = () => {
             "name": "News",
             "link": "/news",
             "submenu": [
-                { "id": 1, "name": "Blog", "link": "/blog" },
-                { "id": 2, "name": "Blog Details", "link": "/blog-details" }
+                { "id": 1, "name": "Blog", "link": "/news/blog" },
+                { "id": 2, "name": "Blog Details", "link": "/news/blog-details" }
             ]
         },
         {
@@ -62,9 +62,9 @@ const Header = () => {
                 { "id": 1, "name": "Auction Details", "link": "/auction-details" },
                 { "id": 2, "name": "FAQ", "link": "/faq" },
                 { "id": 3, "name": "Dashboard", "link": "/dashboard" },
-                { "id": 4, "name": "Login", "link": "/login" },
-                { "id": 5, "name": "SignUp", "link": "/signup" },
-                { "id": 6, "name": "404", "link": "/404" }
+                { "id": 4, "name": "Login", "link": "/auth/login" },
+                { "id": 5, "name": "SignUp", "link": "/auth/signup" },
+                { "id": 6, "name": "404", "link": "/e404" }
             ]
         },
         {
@@ -104,7 +104,6 @@ const Header = () => {
                             )}
                         </li>
                     ))}
-                    <li><Link to="/contact">Contact</Link></li>
                 </ul>
                 <div className="d-lg-none d-block">
                     <form className="mobile-menu-form mb-5">
