@@ -130,8 +130,41 @@ public class ItemsController : ControllerBase
         return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
     }
 
+
+    // Get buyer's bid items history
+    // GET: api/items/{id}/bidhistory
+    [HttpGet("{id}/bidhistory")]
+    public IActionResult GetBuyerBidItems(int id)
+    {
+        var buyer = _context.Users.Find(id);
+        if (buyer == null || buyer.Role != "Buyer")
+        {
+            return BadRequest("Invalid buyer");
+        }
+
+        var bids = _context.Bids
+            .Where(b => b.BidderId == id)
+            .Select(b => new
+            {
+                b.Id,
+                b.Amount,
+                b.BidTime,
+                ItemId = b.Item.Id,
+                ItemName = b.Item.Title,
+                b.IsHighest
+            })
+            .ToList();
+
+        if (bids == null || bids.Count == 0)
+        {
+            return NotFound("No bids found for this buyer.");
+        }
+
+        return Ok(bids);
+    }
+
     // Get bid history for an item
-    // GET: api/Items/{itemId}/bids
+    // GET: api/items/{itemId}/bids
     [HttpGet("{itemId}/bids")]
     public IActionResult GetBidHistory(int itemId)
     {
