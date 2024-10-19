@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BidNest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240903183852_AddFeedbacks")]
-    partial class AddFeedbacks
+    [Migration("20241017175514_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,10 @@ namespace BidNest.Migrations
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsAuctionLive")
                         .HasColumnType("tinyint(1)");

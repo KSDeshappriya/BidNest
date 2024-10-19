@@ -19,7 +19,7 @@ public class ItemsController : ControllerBase
 
     // POST /api/items
     [HttpPost]
-    public async Task<IActionResult> CreateItem(ItemCreateDto dto)
+    public async Task<IActionResult> CreateItem([FromForm] ItemCreateDto dto)
     {
         // Check if user is logged in
         var userId = HttpContext.Session.GetInt32("UserId");
@@ -28,12 +28,32 @@ public class ItemsController : ControllerBase
             return Unauthorized("You must be logged in to create an item.");
         }
 
+        // Validate seller
         var seller = await _context.Users.FindAsync(dto.SellerId);
         if (seller == null || seller.Role != "Seller")
         {
             return BadRequest("Invalid seller");
         }
 
+        // Check if an image file was provided
+        if (dto.ImageFile == null || dto.ImageFile.Length == 0)
+        {
+            return BadRequest("An image file is required.");
+        }
+
+        // Generate a unique filename for the image
+        var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.ImageFile.FileName);
+
+        // Define the path to save the image
+        var imagePath = Path.Combine("wwwroot/images", imageFileName);
+
+        // Save the image file to the file system
+        using (var stream = new FileStream(imagePath, FileMode.Create))
+        {
+            await dto.ImageFile.CopyToAsync(stream);
+        }
+
+        // Create and save the item
         var item = new Item
         {
             Title = dto.Title,
@@ -42,13 +62,36 @@ public class ItemsController : ControllerBase
             StartTime = DateTime.UtcNow,
             EndTime = dto.EndTime,
             IsAuctionLive = true,
-            Seller = seller
+            Seller = seller,
+            ImagePath = $"/images/{imageFileName}" // Save the image path in the database
         };
 
         _context.Items.Add(item);
         await _context.SaveChangesAsync();
 
         return Ok(new { item.Id, item.Title });
+    }
+
+    // GET /api/items
+    [HttpGet]
+    public async Task<IActionResult> GetItems()
+    {
+        var items = await _context.Items
+            .Select(i => new
+            {
+                i.Id,
+                i.Title,
+                i.Description,
+                i.StartingPrice,
+                i.StartTime,
+                i.EndTime,
+                i.ImagePath,
+                i.IsAuctionLive,
+                SellerName = i.Seller.UserName
+            })
+            .ToListAsync();
+
+        return Ok(items);
     }
 
     // GET /api/items/{id}

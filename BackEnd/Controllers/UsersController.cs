@@ -43,14 +43,15 @@ public class UsersController : ControllerBase
         var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == dto.Email);
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
         {
-            return Unauthorized("Invalid credentials");
+            return Unauthorized(new { message = "Invalid credentials" });
         }
 
         // Set user session
         HttpContext.Session.SetInt32("UserId", user.Id);
         HttpContext.Session.SetString("UserRole", user.Role);
 
-        return Ok("Login successful");
+        // Return a JSON response with a success message
+        return Ok(new { message = "Login successful", userId = user.Id, role = user.Role });
     }
 
     // POST /api/users/logout
@@ -60,5 +61,24 @@ public class UsersController : ControllerBase
         // Clear the session
         HttpContext.Session.Clear();
         return Ok("Logout successful");
+    }
+
+    // PUT /api/users/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UserUpdateDto dto)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        user.UserName = dto.UserName;
+        user.Email = dto.Email;
+        user.Role = dto.Role;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 }

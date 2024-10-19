@@ -191,10 +191,33 @@ Follow the same steps as previously mentioned to create your ASP.NET 8 Web API. 
      });
      ```
 
-   - Use the CORS middleware:
-     ```csharp
-     app.UseCors("AllowAllOrigins");
-     ```
+
+    **Updated Code to Allow a Specific Origin**
+
+    To allow requests from only one specific origin instead of allowing any origin, you can modify the `AddPolicy` method in your `Program.cs` to specify that origin. Here’s how you can update the CORS configuration to allow requests from a specific origin:
+
+    In `Program.cs`, configure the CORS policy like this:
+
+    ```csharp
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin",
+            builder => builder.WithOrigins("https://your-sveltekit-app.com") // Replace with your SvelteKit app's URL
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+    });
+    ```
+
+    Then, make sure to apply the CORS middleware:
+
+    ```csharp
+    app.UseCors("AllowSpecificOrigin");
+    ```
+
+### Explanation:
+- Replace `"https://your-sveltekit-app.com"` with the actual URL of your SvelteKit application.
+- This policy will now allow only requests from that specific origin, while still allowing any HTTP methods and headers.
+
 
 ### 2. Set Up the SvelteKit Frontend
 

@@ -10,12 +10,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
+// Register the background service
+builder.Services.AddHostedService<AuctionStatusUpdater>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:5173") // Replace with your frontend URL
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials()); // If you're using credentials (cookies, tokens, etc.)
 });
 
 builder.Services.AddScoped<AuctionService>();
@@ -49,7 +61,34 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseSession(); // Enable session
+
+// give access to view 'wwwroot' folder anyone who visit http://localhost:5170/wwwroot/
+// Enable serving static files from wwwroot
+app.UseStaticFiles(); // This will serve files from wwwroot
+
 app.UseAuthorization();
+
+app.UseRouting(); // Ensure UseCors is called before any route handling
+app.UseCors("AllowSpecificOrigin"); 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:5173");
+        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        context.Response.StatusCode = 204; // No content for OPTIONS request
+        return;
+    }
+
+    await next();
+});
 
 app.MapControllers();
 

@@ -101,6 +101,10 @@ namespace BidNest.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("IsAuctionLive")
                         .HasColumnType("tinyint(1)");
 

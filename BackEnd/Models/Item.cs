@@ -11,5 +11,6 @@ public class Item
     public bool IsAuctionLive { get; set; }
     public User Seller { get; set; }
     public int SellerId { get; set; }
+    public string ImagePath { get; set; } // Add this line
     public ICollection<Bid> Bids { get; set; }
 }
