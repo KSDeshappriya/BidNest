@@ -1,0 +1,27 @@
+{
+	"/": [],
+	"/about": [],
+	"/auction-details": [],
+	"/auth/login": [
+		"src/routes/auth/login/+server.js"
+	],
+	"/auth/register": [
+		"src/routes/auth/register/+server.js"
+	],
+	"/blog-details": [],
+	"/blog": [],
+	"/contact": [],
+	"/dashboards/seller": [
+		"src/routes/dashboards/seller/+page.server.js"
+	],
+	"/extra/try01": [
+		"src/routes/extra/try01/+page.ts",
+		"src/routes/extra/try01/+page.server.js"
+	],
+	"/faq": [],
+	"/how-works": [],
+	"/live-auction": [],
+	"/login": [],
+	"/payments": [],
+	"/signup": []
+}
