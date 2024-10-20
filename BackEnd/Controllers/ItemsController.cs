@@ -17,6 +17,7 @@ public class ItemsController : ControllerBase
         _context = context;
     }
 
+    // POST Create Item
     // POST /api/items
     [HttpPost]
     public async Task<IActionResult> CreateItem([FromForm] ItemCreateDto dto)
@@ -41,11 +42,15 @@ public class ItemsController : ControllerBase
             return BadRequest("An image file is required.");
         }
 
-        // Generate a unique filename for the image
-        var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.ImageFile.FileName);
+        // // Generate a unique filename for the image
+        // var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.ImageFile.FileName);
+
+        // Generate a unique filename for the image using the username and a timestamp
+        var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+        var imageFileName = $"{dto.Title}_{timestamp}{Path.GetExtension(dto.ImageFile.FileName)}";
 
         // Define the path to save the image
-        var imagePath = Path.Combine("wwwroot/images", imageFileName);
+        var imagePath = Path.Combine("wwwroot/images/items", imageFileName);
 
         // Save the image file to the file system
         using (var stream = new FileStream(imagePath, FileMode.Create))
@@ -63,7 +68,7 @@ public class ItemsController : ControllerBase
             EndTime = dto.EndTime,
             IsAuctionLive = true,
             Seller = seller,
-            ImagePath = $"/images/{imageFileName}" // Save the image path in the database
+            ImagePath = $"/images/items/{imageFileName}" // Save the image path in the database
         };
 
         _context.Items.Add(item);
@@ -72,6 +77,7 @@ public class ItemsController : ControllerBase
         return Ok(new { item.Id, item.Title });
     }
 
+    // GET All Items
     // GET /api/items
     [HttpGet]
     public async Task<IActionResult> GetItems()
@@ -87,45 +93,86 @@ public class ItemsController : ControllerBase
                 i.EndTime,
                 i.ImagePath,
                 i.IsAuctionLive,
-                SellerName = i.Seller.UserName
+                SellerName = i.Seller.UserName,
+                SellerId = i.Seller.Id,
+                CurrentPrice = i.Bids
+                    .Where(b => b.IsHighest)
+                    .Select(b => b.Amount)
+                    .FirstOrDefault() // Get the amount of the highest bid
             })
             .ToListAsync();
 
         return Ok(items);
     }
 
-    // GET /api/items/{id}
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetItem(int id)
+    // Get Item's bid history
+    // GET /api/items/{itemId}/itemBidHistory
+    [HttpGet("{itemId}/itemBidHistory")]
+    public IActionResult GetItemBidHistory(int itemId)
     {
-        var item = await _context.Items.Include(i => i.Bids).FirstOrDefaultAsync(i => i.Id == id);
+        var item = _context.Items.Find(itemId);
         if (item == null)
         {
-            return NotFound();
+            return BadRequest("Invalid item");
         }
 
-        return Ok(new
-        {
-            item.Id,
-            item.Title,
-            item.Description,
-            item.StartingPrice,
-            item.StartTime,
-            item.EndTime,
-            item.IsAuctionLive,
-            Bids = item.Bids.Select(b => new
+        var bids = _context.Bids
+            .Where(b => b.ItemId == itemId)
+            .Select(b => new
             {
                 b.Id,
                 b.Amount,
                 b.BidTime,
-                b.BidderId,
+                BidderName = b.Bidder.UserName,
+                BidderId = b.Bidder.Id,
                 b.IsHighest
             })
-        });
+            .ToList();
+
+        if (bids == null || bids.Count == 0)
+        {
+            return NotFound("No bids found for this item.");
+        }
+
+        return Ok(bids);
     }
 
-    // POST /api/items/{id}/bids
-    [HttpPost("{id}/bids")]
+    // GET Seller's Items
+    // GET /api/items/{userId}/sellerItems
+    [HttpGet("{userId}/sellerItems")]
+    public async Task<IActionResult> GetSellerItems(int userId)
+    {
+        var seller = await _context.Users.FindAsync(userId);
+        if (seller == null || seller.Role != "Seller")
+        {
+            return BadRequest("Invalid seller");
+        }
+
+        var items = await _context.Items
+            .Where(i => i.SellerId == userId)
+            .Select(i => new
+            {
+                i.Id,
+                i.Title,
+                i.Description,
+                i.StartingPrice,
+                i.StartTime,
+                i.EndTime,
+                i.ImagePath,
+                i.IsAuctionLive,
+                CurrentPrice = i.Bids
+                    .Where(b => b.IsHighest)
+                    .Select(b => b.Amount)
+                    .FirstOrDefault() // Get the amount of the highest bid
+            })
+            .ToListAsync();
+
+        return Ok(items);
+    }
+
+    // POST Bids for an item
+    // POST /api/items/{id}/placeBid
+    [HttpPost("{id}/placeBid")]
     public async Task<IActionResult> PlaceBid(int id, BidCreateDto dto)
     {
         // Check if user is logged in
@@ -173,10 +220,9 @@ public class ItemsController : ControllerBase
         return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
     }
 
-
     // Get buyer's bid items history
-    // GET: api/items/{id}/bidhistory
-    [HttpGet("{id}/bidhistory")]
+    // GET: api/items/{id}/buyerBidHistory
+    [HttpGet("{id}/buyerBidHistory")]
     public IActionResult GetBuyerBidItems(int id)
     {
         var buyer = _context.Users.Find(id);
@@ -206,26 +252,4 @@ public class ItemsController : ControllerBase
         return Ok(bids);
     }
 
-    // Get bid history for an item
-    // GET: api/items/{itemId}/bids
-    [HttpGet("{itemId}/bids")]
-    public IActionResult GetBidHistory(int itemId)
-    {
-        var bids = _context.Bids
-            .Where(b => b.ItemId == itemId)
-            .Select(b => new
-            {
-                b.Amount,
-                b.BidTime,
-                BidderName = b.Bidder.UserName,
-                b.IsHighest
-            }).ToList();
-
-        if (bids == null || bids.Count == 0)
-        {
-            return NotFound("No bids found for this item.");
-        }
-
-        return Ok(bids);
-    }
 }

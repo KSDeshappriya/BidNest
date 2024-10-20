@@ -2,31 +2,30 @@
 
 export async function load({ request }) {
     try {
+        let userId = 1;
         // Forward the GET request to your .NET 8 API
-        const apiResponse = await fetch('http://localhost:5170/api/items', {
+        const apiResponse = await fetch(`http://localhost:5170/api/items/${userId}/sellerItems`, {
             method: 'GET' // Simply retrieve the auction items
         });
 
-        if (apiResponse.ok) {
-            const data = await apiResponse.json();
-            return {
-                status: 200,
-                data: data,
-                message: 'Items retrieved successfully'
-            };
-        } else {
-            let errorData = { message: '' };
-            try {
-                errorData = await apiResponse.json();
-            } catch (e) {
-                errorData = { message: `API returned an error: ${apiResponse.status}` };
+        // if (apiResponse.ok) {
+            const items = await apiResponse.json();
+            // Fetch user data
+            const userResponse = await fetch(`http://localhost:5170/api/users/${userId}`, {
+                method: 'GET' // Simply retrieve the auction items
+            });
+            let user = null;
+            if (userResponse.ok) {
+                user = await userResponse.json();
+                return {
+                    items: items,
+                    user: user,
+                };
             }
             return {
-                status: apiResponse.status,
-                data: null,
-                message: errorData.message || 'Failed to retrieve items'
+                items: items,
             };
-        }
+        // }
     } catch (error) {
         return {
             status: 500,

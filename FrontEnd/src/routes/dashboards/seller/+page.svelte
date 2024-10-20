@@ -2,16 +2,13 @@
     import { onMount } from 'svelte';
 
     // Page data (don't use export for local variables)
-    export let data: {
-        status: number;
-        data: Array;
-        message: string;
-    };
+    export let data;
 
     // Reactive variable for items
-    $: items = data.data;
+    $: items = data.items;
+    $: userProfile = data.user;
 
-    console.log(data.data);
+    console.log(data);
 
     let currentSection = 'dashboard';
     let addItemModalVisible = false;
@@ -64,34 +61,7 @@
         editItemModalVisible = false;
     }
 
-    // user profile
-    let userProfile = {
-        userName: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        address: '',
-        dateOfBirth: '',
-        profilePicturePath: '',
-    };
-
     let editProfileModalVisible = false;
-
-    function loadUserProfile() {
-        // Load user profile data from an API or local storage
-        // For demonstration, we will use hardcoded values
-        userProfile = {
-            userName: 'john_doe',
-            email: 'john@example.com',
-            firstName: 'John',
-            lastName: 'Doe',
-            phoneNumber: '123-456-7890',
-            address: '123 Main St, Anytown, USA',
-            dateOfBirth: '1990-01-01',
-            profilePicturePath: '/images/profile.jpg',
-        };
-    }
 
     function updateProfile() {
         // Call API to update user profile
@@ -101,7 +71,6 @@
 
     onMount(() => {
         showSection('dashboard');
-        loadUserProfile();
     });
 </script>
 
@@ -128,11 +97,12 @@
             <div id="dashboardSection" class="dashboard-section">
                 <h3>Recent Auctions</h3>
                 <div id="recentActivityList" class="item-list">
-                    {#each items.slice(0, 5) as item}
+                    <!-- {#each items.slice(0, 5) as item} -->
+                    {#each items as item}
                         <div class="item">
                             <img src="http://localhost:5170{item.imagePath}" alt={item.title}>
                             <h4>{item.title}</h4>
-                            <p>Current Price: ${item.currentPrice}</p>
+                            <p>Current Price: ${item.currentPrice || item.startingPrice}</p>
                             <p>End Time: {new Date(item.endTime).toLocaleString()}</p>
                             <span class="live-indicator {item.isAuctionLive ? 'active' : 'inactive'}">
                                 {item.isAuctionLive ? 'Live' : 'Ended'}
@@ -151,7 +121,7 @@
                             <h4>{item.title}</h4>
                             <p>{item.description}</p>
                             <p>Starting Price: ${item.startingPrice}</p>
-                            <p>Current Price: ${item.currentPrice}</p>
+                            <p>Current Price: ${item.currentPrice || item.startingPrice}</p>
                             <p>End Time: {new Date(item.endTime).toLocaleString()}</p>
                             <span class="live-indicator active">Live</span>
                             <div class="item-actions">
@@ -172,7 +142,7 @@
                             <h4>{item.title}</h4>
                             <p>{item.description}</p>
                             <p>Starting Price: ${item.startingPrice}</p>
-                            <p>Sold Price: ${item.currentPrice}</p>
+                            <p>Sold Price: ${item.currentPrice || item.startingPrice}</p>
                             <p>End Time: {new Date(item.endTime).toLocaleString()}</p>
                             <span class="live-indicator inactive">Ended</span>
                         </div>
@@ -228,12 +198,8 @@
                             <h2>Edit Profile</h2>
                             <form on:submit|preventDefault={updateProfile}>
                                 <div class="form-group">
-                                    <label for="firstName">First Name:</label>
-                                    <input type="text" bind:value={userProfile.firstName} required />
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastName">Last Name:</label>
-                                    <input type="text" bind:value={userProfile.lastName} required />
+                                    <label for="firstName">User Name:</label>
+                                    <input type="text" bind:value={userProfile.userName} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email:</label>
@@ -249,7 +215,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="dateOfBirth">Date of Birth:</label>
-                                    <input type="date" bind:value={userProfile.dateOfBirth} required />
+                                    <input type="datetime-local" bind:value={userProfile.dateOfBirth} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="profilePicture">
