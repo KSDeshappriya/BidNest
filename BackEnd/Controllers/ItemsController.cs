@@ -135,6 +135,30 @@ public class ItemsController : ControllerBase
         return Ok(new { item.Id, item.Title });
     }
 
+    // DELETE Items
+    // DELETE /api/items/{itemId}
+    [HttpDelete("{itemId}")]
+    public async Task<IActionResult> DeleteItem(int itemId)
+    {
+        // // Check if user is logged in
+        // var userId = HttpContext.Session.GetInt32("UserId");
+        // if (userId == null)
+        // {
+        //     return Unauthorized("You must be logged in to delete an item.");
+        // }
+
+        var item = await _context.Items.FindAsync(itemId);
+        if (item == null)
+        {
+            return BadRequest("Invalid item");
+        }
+
+        _context.Items.Remove(item);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { item.Id, item.Title });
+    }
+
     // GET All Items
     // GET /api/items
     [HttpGet]

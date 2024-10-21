@@ -152,6 +152,32 @@ export const actions = {
         return fail(400, { message: errorData.message || 'An error occurred while updating the item.' });
     },
 
+    deleteItem: async ({ request }) => {
+        const formData = await request.formData();
+        const itemId = formData.get('id');
+
+        // Submit the form data
+        const submitForm = await fetch(`http://localhost:5170/api/Items/${itemId}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': '*/*'
+            }
+        });
+
+        console.log("submitForm: ", submitForm.status);
+
+        if (submitForm.ok) {
+            return {
+                status: 200,
+                message: 'Item deleted successfully',
+            };
+        }
+
+        // Handle errors
+        const errorData = await submitForm.json();
+        return fail(400, { message: errorData.message || 'An error occurred while deleting the item.' });
+    },
+
     updateProfile: async ({ request }) => {
         const formData = await request.formData();
 

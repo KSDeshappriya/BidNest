@@ -129,7 +129,12 @@
                             <span class="live-indicator active">Live</span>
                             <div class="item-actions">
                                 <button class="secondary-btn" on:click={() => editItem(item)}>Edit</button>
-                                <button class="primary-btn" on:click={() => deleteItem(item.id)}>Delete</button>
+                                <form method="POST" action="?/deleteItem" enctype="multipart/form-data">
+                                    {#if item}
+                                        <input type="hidden" name="id" value={item.id} />
+                                    {/if}
+                                    <button type="submit" class="primary-btn">Delete</button>
+                                </form>
                             </div>
                         </div>
                     {/each}
@@ -252,23 +257,6 @@
                     <span class="close" on:click={() => addItemModalVisible = false}>×</span>
                     <h2>Add New Auction</h2>
                     <form method="POST" action="?/createItem" enctype="multipart/form-data">
-                        <!-- 
-                        on:submit|preventDefault={() => {
-                        const newItem = {
-                            id: items.length + 1,
-                            title: itemTitle,
-                            description: itemDescription,
-                            startingPrice: parseFloat(itemStartingPrice),
-                            currentPrice: parseFloat(itemStartingPrice),
-                            startTime: new Date().toISOString(),
-                            endTime: itemEndTime,
-                            imagePath: itemImagePath,
-                            isAuctionLive: true,
-                            // imagePath: "/images/placeholder.jpg", // Placeholder image
-                        };
-                        addItem(newItem);
-                    }}
-                        -->
                         <div class="form-group">
                             <label for="itemTitle">Title:</label>
                             <input type="text"  name="title" bind:value={itemTitle} required />
