@@ -1,40 +1,4 @@
 <script lang="ts">
-    let email = "";
-    let password = "";
-    let isLoggedIn = false;
-    let loginError: string | null = null;
-
-    // function openExternalLink(url: string) {
-    //     window.open(url, "noopener,noreferrer");
-    // }
-
-    const handleLogin = async (event: Event) => {
-        event.preventDefault();
-
-        try {
-            const response = await fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data.data);
-                isLoggedIn = true;
-                // Redirect to a protected page or handle session storage
-                alert(data.message);
-            } else {
-                const errorData = await response.json();
-                loginError = errorData.message || "Login failed.";
-            }
-        } catch (error) {
-            loginError = "An internal error occurred.";
-            console.error(error);
-        }
-    };
 </script>
 
 <div class="login-section pt-120 pb-120">
@@ -60,15 +24,15 @@
                         <h3>Log In</h3>
                         <p>New Member? <a href="signup.html">signup here</a></p>
                     </div>
-                    <form class="w-100" on:submit|preventDefault={handleLogin}>
+                    <form class="w-100" method="POST" action="?/submit">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label>Enter Your Email *</label>
                                     <input
                                         type="email"
+                                        name="email"
                                         placeholder="Enter Your Email"
-                                        bind:value={email}
                                     />
                                 </div>
                             </div>
@@ -80,7 +44,6 @@
                                         name="password"
                                         id="password"
                                         placeholder="Password"
-                                        bind:value={password}
                                     />
                                     <i
                                         class="bi bi-eye-slash"
@@ -106,12 +69,10 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="account-btn" disabled={isLoggedIn}
-                            >Log in</button
-                        >
-                        {#if loginError}
-                            <p class="error-message">{loginError}</p>
-                        {/if}
+                        <button type="submit" class="account-btn">Log in</button>
+                        <!-- {#if data}
+                            <p class="error-message">{data.message}</p>
+                        {/if} -->
                     </form>
                     <div class="alternate-signup-box">
                         <h6>or signup WITH</h6>

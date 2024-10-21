@@ -64,7 +64,7 @@ public class ItemsController : ControllerBase
             Title = dto.Title,
             Description = dto.Description,
             StartingPrice = dto.StartingPrice,
-            StartTime = DateTime.UtcNow,
+            StartTime = DateTime.Now,
             EndTime = dto.EndTime,
             IsAuctionLive = true,
             Seller = seller,

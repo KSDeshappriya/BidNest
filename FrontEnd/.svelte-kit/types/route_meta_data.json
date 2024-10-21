@@ -28,7 +28,9 @@
 	"/(auction)/live-auction": [
 		"src/routes/(auction)/live-auction/+page.server.ts"
 	],
-	"/(auth)/login": [],
+	"/(auth)/login": [
+		"src/routes/(auth)/login/+page.server.ts"
+	],
 	"/(auction)/payments": [],
 	"/(auth)/signup": []
 }

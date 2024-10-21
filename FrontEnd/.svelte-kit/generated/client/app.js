@@ -33,7 +33,7 @@ export const dictionary = {
 		"/faq": [~14],
 		"/how-works": [15],
 		"/(auction)/live-auction": [~4],
-		"/(auth)/login": [6],
+		"/(auth)/login": [~6],
 		"/(auction)/payments": [5],
 		"/(auth)/signup": [7]
 	};
