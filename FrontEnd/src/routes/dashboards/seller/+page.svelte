@@ -199,31 +199,34 @@
                             <!-- svelte-ignore a11y-no-static-element-interactions -->
                             <span class="close" on:click={() => editProfileModalVisible = false}>×</span>
                             <h2>Edit Profile</h2>
-                            <form on:submit|preventDefault={updateProfile}>
+                            <form method="POST" action="?/updateProfile" enctype="multipart/form-data">
+                                {#if userProfile}
+                                    <input type="hidden" name="hiddenId" bind:value={userProfile.id} />
+                                {/if}
                                 <div class="form-group">
                                     <label for="firstName">User Name:</label>
-                                    <input type="text" bind:value={userProfile.userName} required />
+                                    <input type="text" name="userName" bind:value={userProfile.userName} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input type="email" bind:value={userProfile.email} required />
+                                    <input type="email" name="email" bind:value={userProfile.email} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneNumber">Phone Number:</label>
-                                    <input type="text" bind:value={userProfile.phoneNumber} required />
+                                    <input type="text" name="phoneNumber" bind:value={userProfile.phoneNumber} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address:</label>
-                                    <input type="text" bind:value={userProfile.address} required />
+                                    <input type="text" name="address" bind:value={userProfile.address} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="dateOfBirth">Date of Birth:</label>
-                                    <input type="datetime-local" bind:value={userProfile.dateOfBirth} required />
+                                    <input type="datetime-local" name="dateOfBirth" bind:value={userProfile.dateOfBirth} required />
                                 </div>
                                 <div class="form-group">
                                     <label for="profilePicture">
                                         <label for="profilePicture">Profile Picture:</label>
-                                    <input type="file" id="profilePicture" accept="image/*" on:change={event => {
+                                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" on:change={event => {
                                         const file = event.target.files[0];
                                         if (file) {
                                             // Here you would typically upload the file and get the path

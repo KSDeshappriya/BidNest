@@ -151,4 +151,61 @@ export const actions = {
         const errorData = await submitForm.json();
         return fail(400, { message: errorData.message || 'An error occurred while updating the item.' });
     },
+
+    updateProfile: async ({ request }) => {
+        const formData = await request.formData();
+
+        // Get Form Data
+        const id = formData.get("hiddenId")?.toString();
+        const userName = formData.get("userName")?.toString();
+        const email = formData.get("email")?.toString();
+        const phoneNumber = formData.get("phoneNumber")?.toString();
+        const address = formData.get("address")?.toString();
+        const dateOfBirth = formData.get("dateOfBirth")?.toString();
+        const profilePicture = formData.get('profilePicture') as File;
+
+        // Validate required fields
+        if (!id || !userName || !email || !phoneNumber || !address || !dateOfBirth) {
+            console.log("all fields are required");
+            return fail(400, { message: 'All fields are required' });
+        }
+
+        // Create a FormData object
+        const nData = new FormData();
+        // nData.append('Id', id);
+        nData.append('UserName', userName);
+        nData.append('Email', email);
+        nData.append('PhoneNumber', phoneNumber);
+        nData.append('Address', address);
+        nData.append('DateOfBirth', dateOfBirth);
+
+        if (profilePicture) {
+            nData.append('ImageFile', profilePicture);
+            nData.append('ProfilePicturePath', profilePicture.name);
+        }
+
+        console.log("data to send: ", nData);
+
+        // Submit the form data
+        const submitForm = await fetch(`http://localhost:5170/api/users/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': '*/*'
+            },
+            body: nData
+        });
+
+        console.log("submitForm: ", submitForm);
+
+        if (submitForm.ok) {
+            return {
+                status: 200,
+                message: 'Profile updated successfully',
+            };
+        }
+
+        // Handle errors
+        const errorData = await submitForm.json();
+        return fail(400, { message: errorData.message || 'An error occurred while updating the profile.' });
+    }
 };

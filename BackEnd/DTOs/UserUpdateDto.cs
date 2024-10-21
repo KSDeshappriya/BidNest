@@ -13,5 +13,4 @@ public class UserUpdateDto
 
     [NotMapped] // Tell EF Core to ignore this property
     public IFormFile ImageFile { get; set; }
-    public string Role { get; set; }
 }
