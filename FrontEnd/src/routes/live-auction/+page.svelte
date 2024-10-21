@@ -22,6 +22,6 @@
 <TopBar />
 <Header />
 <InnerBanner />
-<BiddingItems />
+<BiddingItems data={$page.data} />
 <Counter />
 <Footer />

@@ -34,7 +34,7 @@ export const dictionary = {
 		"/extra/try01": [~10],
 		"/faq": [11],
 		"/how-works": [12],
-		"/live-auction": [13],
+		"/live-auction": [~13],
 		"/login": [14],
 		"/payments": [15],
 		"/signup": [16]

@@ -23,7 +23,9 @@
 	],
 	"/faq": [],
 	"/how-works": [],
-	"/live-auction": [],
+	"/live-auction": [
+		"src/routes/live-auction/+page.server.ts"
+	],
 	"/login": [],
 	"/payments": [],
 	"/signup": []
