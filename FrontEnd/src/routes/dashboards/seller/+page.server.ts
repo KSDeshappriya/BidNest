@@ -39,7 +39,7 @@ export async function load({ request }) {
 
 
 export const actions = {
-    default: async ({ request }) => {
+    createItem: async ({ request }) => {
         const formData = await request.formData();
 
         // Get Form Data
@@ -68,7 +68,7 @@ export const actions = {
         const nData = new FormData();
         nData.append('Title', title);
         nData.append('Description', description);
-        // nData.append('StartingPrice', startingPrice);
+        nData.append('StartingPrice', startingPrice);
         nData.append('EndTime', endTime);
         nData.append('SellerId', '1');
         nData.append('ImageFile', imageFile);

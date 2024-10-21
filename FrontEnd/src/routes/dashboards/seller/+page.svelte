@@ -248,7 +248,7 @@
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <span class="close" on:click={() => addItemModalVisible = false}>×</span>
                     <h2>Add New Auction</h2>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" action="?/createItem" enctype="multipart/form-data">
                         <!-- 
                         on:submit|preventDefault={() => {
                         const newItem = {
