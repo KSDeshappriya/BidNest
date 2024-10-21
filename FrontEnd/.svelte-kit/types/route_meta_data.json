@@ -1,18 +1,17 @@
 {
 	"/": [],
 	"/about": [],
-	"/auction-details": [],
-	"/auction-details/[id]": [
-		"src/routes/auction-details/[id]/+page.server.ts"
+	"/(auction)/auction-details/[id]": [
+		"src/routes/(auction)/auction-details/[id]/+page.server.ts"
 	],
-	"/auth/login": [
-		"src/routes/auth/login/+server.js"
+	"/(auth)/auth/login": [
+		"src/routes/(auth)/auth/login/+server.js"
 	],
-	"/auth/register": [
-		"src/routes/auth/register/+server.js"
+	"/(auth)/auth/register": [
+		"src/routes/(auth)/auth/register/+server.js"
 	],
-	"/blog-details": [],
-	"/blog": [],
+	"/(blog)/blog-details": [],
+	"/(blog)/blog": [],
 	"/contact": [
 		"src/routes/contact/+page.server.ts"
 	],
@@ -30,10 +29,10 @@
 		"src/routes/faq/+page.server.ts"
 	],
 	"/how-works": [],
-	"/live-auction": [
-		"src/routes/live-auction/+page.server.ts"
+	"/(auction)/live-auction": [
+		"src/routes/(auction)/live-auction/+page.server.ts"
 	],
-	"/login": [],
-	"/payments": [],
-	"/signup": []
+	"/(auth)/login": [],
+	"/(auction)/payments": [],
+	"/(auth)/signup": []
 }
