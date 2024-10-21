@@ -4,19 +4,19 @@
         {
             date: "January 31, 2022",
             title: "Grant Distributions Continue to Increase.",
-            imgSrc: "assets/images/blog/recent-feed1.png",
+            imgSrc: "/assets/images/blog/recent-feed1.png",
             link: "blog-details.html"
         },
         {
             date: "February 21, 2022",
             title: "Seminar for Children to Learn About.",
-            imgSrc: "assets/images/blog/recent-feed2.png",
+            imgSrc: "/assets/images/blog/recent-feed2.png",
             link: "blog-details.html"
         },
         {
             date: "March 22, 2022",
             title: "Education and teacher for all African Children.",
-            imgSrc: "assets/images/blog/recent-feed3.png",
+            imgSrc: "/assets/images/blog/recent-feed3.png",
             link: "blog-details.html"
         }
     ];
@@ -29,14 +29,14 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item">
                         <a href="index-2.html">
-                            <img alt="footer logo" src="assets/images/bg/footer-logo.png">
+                            <img alt="footer logo" src="/assets/images/bg/footer-logo.png">
                         </a>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                         <form>
                             <div class="input-with-btn d-flex justify-content-start align-items-stretch">
                                 <input type="text" placeholder="Enter your email">
                                 <button type="submit">
-                                    <img alt="send icon" src="assets/images/icons/send-icon.svg">
+                                    <img alt="send icon" src="/assets/images/icons/send-icon.svg">
                                 </button>
                             </div>
                         </form>
@@ -100,11 +100,11 @@
                 <div class="col-lg-6 d-flex justify-content-lg-end justify-content-center align-items-center flex-sm-nowrap flex-wrap">
                     <p class="d-sm-flex d-none">We Accepts:</p>
                     <ul class="footer-logo-list">
-                        <li><a href="#"><img alt="payment method" src="assets/images/bg/footer-pay1.png"></a></li>
-                        <li><a href="#"><img alt="payment method" src="assets/images/bg/footer-pay2.png"></a></li>
-                        <li><a href="#"><img alt="payment method" src="assets/images/bg/footer-pay3.png"></a></li>
-                        <li><a href="#"><img alt="payment method" src="assets/images/bg/footer-pay4.png"></a></li>
-                        <li><a href="#"><img alt="payment method" src="assets/images/bg/footer-pay5.png"></a></li>
+                        <li><a href="#"><img alt="payment method" src="/assets/images/bg/footer-pay1.png"></a></li>
+                        <li><a href="#"><img alt="payment method" src="/assets/images/bg/footer-pay2.png"></a></li>
+                        <li><a href="#"><img alt="payment method" src="/assets/images/bg/footer-pay3.png"></a></li>
+                        <li><a href="#"><img alt="payment method" src="/assets/images/bg/footer-pay4.png"></a></li>
+                        <li><a href="#"><img alt="payment method" src="/assets/images/bg/footer-pay5.png"></a></li>
                     </ul>
                 </div>
             </div>

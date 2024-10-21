@@ -1,12 +1,12 @@
 <!-- Category Section -->
 <script>
     const categories = [
-        { name: 'Digital Art', image: 'assets/images/slider/digitalArt.svg', link: '/live-auction' },
-        { name: 'Music', image: 'assets/images/slider/music.svg', link: '/live-auction' },
-        { name: 'Motor Bike', image: 'assets/images/slider/motorbike.svg', link: '/live-auction' },
-        { name: 'Game Pad', image: 'assets/images/slider/gamepad.svg', link: '/live-auction' },
-        { name: 'Real Estate', image: 'assets/images/slider/realEstate.svg', link: '/live-auction' },
-        { name: 'Collectibles', image: 'assets/images/slider/collectibles.svg', link: '/live-auction' },
+        { name: 'Digital Art', image: '/assets/images/slider/digitalArt.svg', link: '/live-auction' },
+        { name: 'Music', image: '/assets/images/slider/music.svg', link: '/live-auction' },
+        { name: 'Motor Bike', image: '/assets/images/slider/motorbike.svg', link: '/live-auction' },
+        { name: 'Game Pad', image: '/assets/images/slider/gamepad.svg', link: '/live-auction' },
+        { name: 'Real Estate', image: '/assets/images/slider/realEstate.svg', link: '/live-auction' },
+        { name: 'Collectibles', image: '/assets/images/slider/collectibles.svg', link: '/live-auction' },
     ];
 
     let currentIndex = 0;

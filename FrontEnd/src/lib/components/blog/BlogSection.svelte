@@ -5,42 +5,42 @@
         "title": "Still Has in Advertising Creative Digital Reviews",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle11.png"
+        "image": "/assets/images/blog/blogstyle11.png"
     },
     {
         "date": "May 30, 2022",
         "title": "Our friend Johnny No-Job He’s a specialist in influencer.",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle12.png"
+        "image": "/assets/images/blog/blogstyle12.png"
     },
     {
         "date": "Jan 30, 2022",
         "title": "While these are just estimates, they encouraging guide",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle13.png"
+        "image": "/assets/images/blog/blogstyle13.png"
     },
     {
         "date": "May 30, 2022",
         "title": "What skills do you need marketing consultant?",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle14.png"
+        "image": "/assets/images/blog/blogstyle14.png"
     },
     {
         "date": "Jan 30, 2022",
         "title": "If you feel the same way becoming a.",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle15.png"
+        "image": "/assets/images/blog/blogstyle15.png"
     },
     {
         "date": "May 30, 2022",
         "title": "Creative Fashion Riboon Digital with rgb lights.",
         "author": "Johan Martin",
         "comments": 5,
-        "image": "assets/images/blog/blogstyle16.png"
+        "image": "/assets/images/blog/blogstyle16.png"
     }
 ]
 
@@ -60,11 +60,11 @@
                             <h5><a href="blog-details.html">{blog.title}</a></h5>
                             <div class="blog-meta">
                                 <div class="author">
-                                    <img alt="image" src="assets/images/blog/author1.png">
+                                    <img alt="image" src="/assets/images/blog/author1.png">
                                     <a href="blog-details.html" class="author-name">{blog.author}</a>
                                 </div>
                                 <div class="comment">
-                                    <img alt="image" src="assets/images/icons/comment-icon.svg">
+                                    <img alt="image" src="/assets/images/icons/comment-icon.svg">
                                     <a href="#" class="comment">{blog.comments} Comments</a>
                                 </div>
                             </div>

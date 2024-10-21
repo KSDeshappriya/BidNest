@@ -4,25 +4,25 @@
         {
             finalValue: 5400,
             label: "Happy Customer",
-            icon: "assets/images/icons/employee.svg",
+            icon: "/assets/images/icons/employee.svg",
             delay: 0.2
         },
         {
             finalValue: 1250,
             label: "Good Reviews",
-            icon: "assets/images/icons/review.svg",
+            icon: "/assets/images/icons/review.svg",
             delay: 0.4
         },
         {
             finalValue: 4250,
             label: "Winner Customer",
-            icon: "assets/images/icons/smily.svg",
+            icon: "/assets/images/icons/smily.svg",
             delay: 0.6
         },
         {
             finalValue: 500,
             label: "New Comments",
-            icon: "assets/images/icons/comment.svg",
+            icon: "/assets/images/icons/comment.svg",
             delay: 0.8
         }
     ];

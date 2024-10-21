@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/live-auction/+page.svelte";
+export { default as component } from "../../../../src/routes/how-works/+page.svelte";

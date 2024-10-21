@@ -11,19 +11,19 @@
 </script>
 
 <div class="about-section pt-120 pb-120">
-    <img src="assets/images/bg/section-bg.png" class="img-fluid section-bg-top" alt="section-bg">
+    <img src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-top" alt="section-bg">
     <div class="container">
         <div class="row d-flex justify-content-center g-4">
             <div class="col-lg-6 col-md-10">
                 <div class="about-img-area">
                     <div class="total-tag">
-                        <img src="assets/images/bg/total-tag.png" alt="total-tag">
+                        <img src="/assets/images/bg/total-tag.png" alt="total-tag">
                         <h6>Total Raised</h6>
                         <h5>{totalRaised}</h5>
                     </div>
-                    <img src="assets/images/bg/about-img.png" class="img-fluid about-img wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s" alt="about-img">
-                    <img src="assets/images/bg/about-linear.png" class="img-fluid about-linear" alt="about-linear">
-                    <img src="assets/images/bg/about-vector.png" class="img-fluid about-vector" alt="about-vector">
+                    <img src="/assets/images/bg/about-img.png" class="img-fluid about-img wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s" alt="about-img">
+                    <img src="/assets/images/bg/about-linear.png" class="img-fluid about-linear" alt="about-linear">
+                    <img src="/assets/images/bg/about-vector.png" class="img-fluid about-vector" alt="about-vector">
                 </div>
             </div>
             <div class="col-lg-6 col-md-10">

@@ -2,6 +2,9 @@
 	"/": [],
 	"/about": [],
 	"/auction-details": [],
+	"/auction-details/[id]": [
+		"src/routes/auction-details/[id]/+page.server.ts"
+	],
 	"/auth/login": [
 		"src/routes/auth/login/+server.js"
 	],

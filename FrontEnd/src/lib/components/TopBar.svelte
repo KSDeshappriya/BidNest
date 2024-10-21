@@ -8,9 +8,9 @@
     ];
 
     const languages = [
-        { name: 'English', flag: 'assets/images/icons/flag-eng.png' },
-        { name: 'French', flag: 'assets/images/icons/flag-french.svg' },
-        { name: 'Bengali', flag: 'assets/images/icons/flag-bangla.svg' },
+        { name: 'English', flag: '/assets/images/icons/flag-eng.png' },
+        { name: 'French', flag: '/assets/images/icons/flag-french.svg' },
+        { name: 'Bengali', flag: '/assets/images/icons/flag-bangla.svg' },
     ];
 
     const currencies = [

@@ -3,18 +3,18 @@
     const newsItems = [
         {
             date: "Jan 30, 2022",
-            imgSrc: "assets/images/blog/blogstyle11.png",
+            imgSrc: "/assets/images/blog/blogstyle11.png",
             title: "David Droga Still Has Faith in Online Advertising Creative Digital Reviews",
-            authorImg: "assets/images/blog/author1.png",
+            authorImg: "/assets/images/blog/author1.png",
             authorName: "Johan Martin",
             commentsCount: 5,
             link: "blog-details.html"
         },
         {
             date: "May 30, 2022",
-            imgSrc: "assets/images/blog/blogstyle12.png",
+            imgSrc: "/assets/images/blog/blogstyle12.png",
             title: "Take our friend Johnny No-Job, for example. He’s a specialist in influencer.",
-            authorImg: "assets/images/blog/author1.png",
+            authorImg: "/assets/images/blog/author1.png",
             authorName: "Johan Martin",
             commentsCount: 5,
             link: "blog-details.html"
@@ -24,8 +24,8 @@
 
 <!-- Recent News Section -->
 <div class="recent-news-section pt-120 pb-120">
-    <img alt="Background" src="assets/images/bg/section-bg.png" class="img-fluid section-bg">
-    <img alt="Dot Circle" src="assets/images/icons/dot-circle.svg" class="dot-circle">
+    <img alt="Background" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg">
+    <img alt="Dot Circle" src="/assets/images/icons/dot-circle.svg" class="dot-circle">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
@@ -51,7 +51,7 @@
                                     <a href="blog.html" class="author-name">{newsItem.authorName}</a>
                                 </div>
                                 <div class="comment">
-                                    <img alt="Comment icon" src="assets/images/icons/comment-icon.svg">
+                                    <img alt="Comment icon" src="/assets/images/icons/comment-icon.svg">
                                     <a href="#" class="comment">{newsItem.commentsCount} Comments</a>
                                 </div>
                             </div>

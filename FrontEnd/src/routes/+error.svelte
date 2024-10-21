@@ -21,17 +21,17 @@
     </div>
 
     <div class="error-section pt-120 pb-120">
-        <img src="assets/images/bg/section-bg.png" class="img-fluid section-bg-top" alt="Section background">
-        <img src="assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom" alt="Section background">
-        <img src="assets/images/bg/e-vector1.svg" class="evector1" alt="e-vector1">
-        <img src="assets/images/bg/e-vector2.svg" class="evector2" alt="e-vector2">
-        <img src="assets/images/bg/e-vector3.svg" class="evector3" alt="e-vector3">
-        <img src="assets/images/bg/e-vector4.svg" class="evector4" alt="e-vector4">
+        <img src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-top" alt="Section background">
+        <img src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom" alt="Section background">
+        <img src="/assets/images/bg/e-vector1.svg" class="evector1" alt="e-vector1">
+        <img src="/assets/images/bg/e-vector2.svg" class="evector2" alt="e-vector2">
+        <img src="/assets/images/bg/e-vector3.svg" class="evector3" alt="e-vector3">
+        <img src="/assets/images/bg/e-vector4.svg" class="evector4" alt="e-vector4">
         <div class="container">
             <div class="row d-flex justify-content-center g-4">
                 <div class="col-lg-6 col-md-8 text-center">
                     <div class="error-wrapper">
-                        <img src="assets/images/bg/error-bg.png" class="error-bg img-fluid" alt="error-bg">
+                        <img src="/assets/images/bg/error-bg.png" class="error-bg img-fluid" alt="error-bg">
                         <div class="error-content wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
                             <h2>Sorry we can’t find that page</h2>
                             <p class="para">The page you are looking for was moved, removed, renamed or never existed</p>

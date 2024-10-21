@@ -90,12 +90,12 @@
 <div class="signup-section pt-120 pb-120">
     <img
         alt="image"
-        src="assets/images/bg/section-bg.png"
+        src="/assets/images/bg/section-bg.png"
         class="section-bg-top"
     />
     <img
         alt="image"
-        src="assets/images/bg/section-bg.png"
+        src="/assets/images/bg/section-bg.png"
         class="section-bg-bottom"
     />
     <div class="container">

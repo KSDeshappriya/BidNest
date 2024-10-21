@@ -100,13 +100,13 @@
   <!-- svelte-ignore a11y-img-redundant-alt -->
   <img
     alt="image"
-    src="assets/images/bg/section-bg.png"
+    src="/assets/images/bg/section-bg.png"
     class="img-fluid section-bg-top"
   />
   <!-- svelte-ignore a11y-img-redundant-alt -->
   <img
     alt="image"
-    src="assets/images/bg/section-bg.png"
+    src="/assets/images/bg/section-bg.png"
     class="img-fluid section-bg-bottom"
   />
   <div class="container">
@@ -140,7 +140,7 @@
               <div class="author-area">
                 <div class="author-emo">
                   <!-- svelte-ignore a11y-img-redundant-alt -->
-                  <img alt="image" src="assets/images/icons/smile-emo.svg" />
+                  <img alt="image" src="/assets/images/icons/smile-emo.svg" />
                 </div>
                 <div class="author-name">
                   <span>by {auction.author}</span>

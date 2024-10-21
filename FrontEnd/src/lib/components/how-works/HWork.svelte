@@ -6,7 +6,7 @@
             title: "Register Now & Start Selling Your Things",
             description1: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.",
             description2: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.",
-            image: "assets/images/bg/how-work1.png",
+            image: "/assets/images/bg/how-work1.png",
             buttonText: "Register Account",
             buttonLink: "signup.html",
             imagePosition: "right"
@@ -16,7 +16,7 @@
             title: "Select Your Item",
             description1: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.",
             description2: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.",
-            image: "assets/images/bg/how-work2.png",
+            image: "/assets/images/bg/how-work2.png",
             buttonText: "Add Your Item",
             buttonLink: "live-auction.html",
             imagePosition: "left"
@@ -26,7 +26,7 @@
             title: "Purchase Items",
             description1: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.",
             description2: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.",
-            image: "assets/images/bg/how-work3.png",
+            image: "/assets/images/bg/how-work3.png",
             buttonText: "Purchase Item",
             buttonLink: "live-auction.html",
             imagePosition: "right"
@@ -35,7 +35,7 @@
 </script>
 
 <div class="how-work-section pt-120 pb-120">
-    <img alt="section background" src="assets/images/bg/section-bg.png" class="section-bg-top">
+    <img alt="section background" src="/assets/images/bg/section-bg.png" class="section-bg-top">
     <div class="container">
         {#each steps as step, index}
             <div class="row g-4 mb-60">

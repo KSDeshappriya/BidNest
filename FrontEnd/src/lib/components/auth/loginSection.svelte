@@ -40,12 +40,12 @@
 <div class="login-section pt-120 pb-120">
     <img
         alt="imges"
-        src="assets/images/bg/section-bg.png"
+        src="/assets/images/bg/section-bg.png"
         class="img-fluid section-bg-top"
     />
     <img
         alt="imges"
-        src="assets/images/bg/section-bg.png"
+        src="/assets/images/bg/section-bg.png"
         class="img-fluid section-bg-bottom"
     />
     <div class="container">

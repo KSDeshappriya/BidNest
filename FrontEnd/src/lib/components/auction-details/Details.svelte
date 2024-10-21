@@ -1,39 +1,43 @@
 <script>
+    export let data;
+
+    console.log(data);
+
     // Auction details data
     let galleryImages = [
-        "assets/images/bg/prod-gallery1.png",
-        "assets/images/bg/prod-gallery2.png",
-        "assets/images/bg/prod-gallery3.png"
+        "/assets/images/bg/prod-gallery1.png",
+        "/assets/images/bg/prod-gallery2.png",
+        "/assets/images/bg/prod-gallery3.png"
     ];
 
     let bidders = [
-        { name: "Robart FOX", bid: "24.50 ETH", time: "4 Hours Ago", image: "assets/images/bg/bidder1.png" },
-        { name: "Jane Cooper", bid: "224.5 ETH", time: "5 Hours Ago", image: "assets/images/bg/bidder2.png" },
-        { name: "Guy Hawkins", bid: "34.5 ETH", time: "6 Hours 45 minutes Ago", image: "assets/images/bg/bidder3.png" },
-        { name: "Robart FOX", bid: "24.50 ETH", time: "4 Hours Ago", image: "assets/images/bg/bidder1.png" },
-        { name: "Jane Cooper", bid: "224.5 ETH", time: "5 Hours Ago", image: "assets/images/bg/bidder2.png" },
-        { name: "Guy Hawkins", bid: "34.5 ETH", time: "6 Hours 45 minutes Ago", image: "assets/images/bg/bidder3.png" }
+        { name: "Robart FOX", bid: "24.50 ETH", time: "4 Hours Ago", image: "/assets/images/bg/bidder1.png" },
+        { name: "Jane Cooper", bid: "224.5 ETH", time: "5 Hours Ago", image: "/assets/images/bg/bidder2.png" },
+        { name: "Guy Hawkins", bid: "34.5 ETH", time: "6 Hours 45 minutes Ago", image: "/assets/images/bg/bidder3.png" },
+        { name: "Robart FOX", bid: "24.50 ETH", time: "4 Hours Ago", image: "/assets/images/bg/bidder1.png" },
+        { name: "Jane Cooper", bid: "224.5 ETH", time: "5 Hours Ago", image: "/assets/images/bg/bidder2.png" },
+        { name: "Guy Hawkins", bid: "34.5 ETH", time: "6 Hours 45 minutes Ago", image: "/assets/images/bg/bidder3.png" }
     ];
 
     let otherAuctions = [
         {
             title: "Brand New Royal Enfield 250 CC For Sale",
             price: "$85.9",
-            image: "assets/images/bg/live-auc1.png",
+            image: "/assets/images/bg/live-auc1.png",
             author: "@robatfox"
         },
         {
             title: "Wedding Special Exclusive Couple Ring (S2022)",
             price: "$85.9",
-            image: "assets/images/bg/live-auc2.png",
+            image: "/assets/images/bg/live-auc2.png",
             author: "@robatfox"
         }
     ];
 </script>
 
 <div class="auction-details-section pt-120">
-    <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-top">
-    <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom">
+    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-top">
+    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom">
 
     <div class="container">
         <div class="row g-4 mb-50">
@@ -68,14 +72,16 @@
                     <p class="para">Korem ipsum dolor amet, consectetur adipiscing elit. Maece nas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla.</p>
                     <h4>Bidding Price: <span>$465.00</span></h4>
 
+                    <!-- Bid Form -->
                     <div class="bid-form">
                         <div class="form-title">
                             <h5>Bid Now</h5>
                             <p>Bid Amount: Minimum Bid $20.00</p>
                         </div>
-                        <form>
+                        <form method="POST" action="?/placeBid">
                             <div class="form-inner gap-2">
-                                <input type="text" placeholder="$00.00">
+                                <input type="hidden" name="bidderId" value="1">
+                                <input type="text" name="bidPrice" placeholder="$00.00">
                                 <button class="eg-btn btn--primary btn--sm" type="submit">Place Bid</button>
                             </div>
                         </form>
@@ -162,7 +168,7 @@
                                             </div>
                                             <div class="author-area">
                                                 <div class="author-emo">
-                                                    <img alt="image" src="assets/images/icons/smile-emo.svg">
+                                                    <img alt="image" src="/assets/images/icons/smile-emo.svg">
                                                 </div>
                                                 <div class="author-name">
                                                     <span>by {auction.author}</span>

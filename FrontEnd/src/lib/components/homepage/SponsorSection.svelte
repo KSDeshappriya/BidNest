@@ -1,15 +1,15 @@
 <script>
     // Define the sponsor image data
     const sponsors = [
-        "assets/images/bg/sponsor1.png",
-        "assets/images/bg/sponsor2.png",
-        "assets/images/bg/sponsor3.png",
-        "assets/images/bg/sponsor4.png",
-        "assets/images/bg/sponsor5.png",
-        "assets/images/bg/sponsor6.png",
-        "assets/images/bg/sponsor7.png",
-        "assets/images/bg/sponsor8.png",
-        "assets/images/bg/sponsor9.png",
+        "/assets/images/bg/sponsor1.png",
+        "/assets/images/bg/sponsor2.png",
+        "/assets/images/bg/sponsor3.png",
+        "/assets/images/bg/sponsor4.png",
+        "/assets/images/bg/sponsor5.png",
+        "/assets/images/bg/sponsor6.png",
+        "/assets/images/bg/sponsor7.png",
+        "/assets/images/bg/sponsor8.png",
+        "/assets/images/bg/sponsor9.png",
     ];
 </script>
 

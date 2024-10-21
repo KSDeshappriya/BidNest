@@ -4,41 +4,41 @@
         {
             id: 1,
             title: "Michael Korian Gold Special Watch m20L6 Bidding",
-            image: "assets/images/bg/umcoming1.png",
+            image: "/assets/images/bg/umcoming1.png",
             category: "Time Zone",
             price: "$15.99",
             author: "@robatfox",
-            authorImage: "assets/images/bg/upcoming-author1.png",
+            authorImage: "/assets/images/bg/upcoming-author1.png",
             countdown: { days: 7, hours: 5, minutes: 56, seconds: 8 },
         },
         {
             id: 2,
             title: "Watercolor Special Lighter 2.2 For Saleing Offer",
-            image: "assets/images/bg/umcoming2.png",
+            image: "/assets/images/bg/umcoming2.png",
             category: "Lit Gaslight",
             price: "$15.99",
             author: "@robatfox",
-            authorImage: "assets/images/bg/upcoming-author2.png",
+            authorImage: "/assets/images/bg/upcoming-author2.png",
             countdown: { days: 7, hours: 5, minutes: 56, seconds: 8 },
         },
         {
             id: 3,
             title: "BMW AIGID A Class Hatch M26 Motor Bike",
-            image: "assets/images/bg/umcoming3.png",
+            image: "/assets/images/bg/umcoming3.png",
             category: "Motor Bike",
             price: "$15.99",
             author: "@robatfox",
-            authorImage: "assets/images/bg/upcoming-author3.png",
+            authorImage: "/assets/images/bg/upcoming-author3.png",
             countdown: { days: 7, hours: 5, minutes: 56, seconds: 8 },
         },
         {
             id: 4,
             title: "Microlab Amazing Head-phone With Adapter",
-            image: "assets/images/bg/umcoming4.png",
+            image: "/assets/images/bg/umcoming4.png",
             category: "Test Watch",
             price: "$15.99",
             author: "@robatfox",
-            authorImage: "assets/images/bg/upcoming-author1.png",
+            authorImage: "/assets/images/bg/upcoming-author1.png",
             countdown: { days: 7, hours: 5, minutes: 56, seconds: 8 },
         },
     ];
@@ -47,7 +47,7 @@
 
 <div class="upcoming-seciton pb-120">
     <!-- svelte-ignore a11y-img-redundant-alt -->
-    <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg">
+    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">

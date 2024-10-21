@@ -1,19 +1,19 @@
 <div class="blog-details-section pt-120 pb-120">
-    <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-top">
-    <img alt="image" src="assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom">
+    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-top">
+    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg-bottom">
     <div class="container">
         <div class="row gy-5">
             <div class="col-lg-8">
                 <div class="blog-details-single">
                     <div class="blog-img">
-                        <img alt="image" src="assets/images/blog/blog-details.png" class="img-fluid wow fadeInDown"
+                        <img alt="image" src="/assets/images/blog/blog-details.png" class="img-fluid wow fadeInDown"
                             data-wow-duration="1.5s" data-wow-delay=".2s">
                     </div>
                     <ul class="blog-meta gap-2">
-                        <li><a href="#"><img alt="image" src="assets/images/icons/calendar.svg">Date: 25 Jan
+                        <li><a href="#"><img alt="image" src="/assets/images/icons/calendar.svg">Date: 25 Jan
                                 2022</a></li>
-                        <li><a href="#"><img alt="image" src="assets/images/icons/tags.svg">Auction</a></li>
-                        <li><a href="#"><img alt="image" src="assets/images/icons/admin.svg">Posted by Admin</a>
+                        <li><a href="#"><img alt="image" src="/assets/images/icons/tags.svg">Auction</a></li>
+                        <li><a href="#"><img alt="image" src="/assets/images/icons/admin.svg">Posted by Admin</a>
                         </li>
                     </ul>
                     <h3 class="blog-title">A brand for a company is like reputation for a person.</h3>
@@ -23,7 +23,7 @@
                             trust fund, poke sartorial ennui next lev el photo booth coloring book etsy green juice
                             meditation austin craft beer.</p>
                         <blockquote>
-                            <img alt="image" src="assets/images/icons/quote-fill-green.svg" class="quote-icon">
+                            <img alt="image" src="/assets/images/icons/quote-fill-green.svg" class="quote-icon">
                             <p class="para">“If the delivery provider maintains all the standards then it is safe to
                                 have get products delivered to you. It is hard to maintain but still safer to get
                                 your products ordered If you’ve been following the crypto space”</p>
@@ -39,7 +39,7 @@
                         <div class="blog-video-area">
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <img alt="image" src="assets/images/blog/blogd1.png" class="img-fluid">
+                                    <img alt="image" src="/assets/images/blog/blogd1.png" class="img-fluid">
                                 </div>
                                 <div class="col-md-6">
                                     <div class="video-wrapper position-relative">
@@ -47,7 +47,7 @@
                                             <a href="https://www.youtube.com/watch?v=u31qwQUeGuM"
                                                 class="popup-youtube video-icon"><i class="bx bx-play"></i></a>
                                         </div>
-                                        <img alt="image" src="assets/images/blog/blogd2.png" class="img-fluid">
+                                        <img alt="image" src="/assets/images/blog/blogd2.png" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="blog-author gap-4 flex-md-nowrap flex-wrap">
                         <div class="author-image">
-                            <img alt="image" src="assets/images/blog/blog-author.png" class="img-fluid">
+                            <img alt="image" src="/assets/images/blog/blog-author.png" class="img-fluid">
                         </div>
                         <div class="author-detials text-md-start text-center">
                             <h5>-- Leslie Alexander</h5>
@@ -102,7 +102,7 @@
                                 <div class="comment-box">
                                     <div class="comment-header d-flex justify-content-between align-items-center">
                                         <div class="author d-flex flex-wrap">
-                                            <img alt="image" src="assets/images/blog/comment1.png">
+                                            <img alt="image" src="/assets/images/blog/comment1.png">
                                             <h5><a href="#">Leslie Waston</a></h5><span class="commnt-date"> April
                                                 6, 2022 at 3:54 am</span>
                                         </div>
@@ -121,7 +121,7 @@
                                             <div
                                                 class="comment-header d-flex justify-content-between align-items-center">
                                                 <div class="author d-flex flex-wrap">
-                                                    <img alt="image" src="assets/images/blog/comment2.png">
+                                                    <img alt="image" src="/assets/images/blog/comment2.png">
                                                     <h5><a href="#">Robert Fox</a></h5><span class="commnt-date">
                                                         April 6, 2022 at 3:54 am</span>
                                                 </div>
@@ -141,7 +141,7 @@
                                 <div class="comment-box">
                                     <div class="comment-header d-flex justify-content-between align-items-center">
                                         <div class="author d-flex flex-wrap">
-                                            <img alt="image" src="assets/images/blog/comment3.png">
+                                            <img alt="image" src="/assets/images/blog/comment3.png">
                                             <h5><a href="#">William Harvey</a></h5><span class="commnt-date"> April
                                                 6, 2022 at 3:54 am</span>
                                         </div>
@@ -219,7 +219,7 @@
                                     <li class="single-post">
                                         <div class="post-img">
                                             <a href="blog-details.html"><img alt="image"
-                                                    src="assets/images/blog/recent-feed1.png"></a>
+                                                    src="/assets/images/blog/recent-feed1.png"></a>
                                         </div>
                                         <div class="post-content">
                                             <span>January 31, 2022</span>
@@ -231,7 +231,7 @@
                                     <li class="single-post">
                                         <div class="post-img">
                                             <a href="blog-details.html"><img alt="image"
-                                                    src="assets/images/blog/recent-feed2.png"></a>
+                                                    src="/assets/images/blog/recent-feed2.png"></a>
                                         </div>
                                         <div class="post-content">
                                             <span>February 21, 2022</span>
@@ -242,7 +242,7 @@
                                     <li class="single-post">
                                         <div class="post-img">
                                             <a href="blog-details.html"><img alt="image"
-                                                    src="assets/images/blog/recent-feed3.png"></a>
+                                                    src="/assets/images/blog/recent-feed3.png"></a>
                                         </div>
                                         <div class="post-content">
                                             <span>March 22, 2022</span>
