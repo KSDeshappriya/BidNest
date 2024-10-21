@@ -10,7 +10,9 @@
 	],
 	"/blog-details": [],
 	"/blog": [],
-	"/contact": [],
+	"/contact": [
+		"src/routes/contact/+page.server.ts"
+	],
 	"/dashboards/bidder": [
 		"src/routes/dashboards/bidder/+page.server.js"
 	],

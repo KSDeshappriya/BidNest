@@ -28,7 +28,7 @@ export const dictionary = {
 		"/auction-details": [4],
 		"/blog-details": [6],
 		"/blog": [5],
-		"/contact": [7],
+		"/contact": [~7],
 		"/dashboards/bidder": [~8],
 		"/dashboards/seller": [~9],
 		"/extra/try01": [~10],
