@@ -1,35 +1,38 @@
-<script>
+<script lang="ts">
     // Data for FAQ questions
-    let faqs = [
-        {
-            question: "Where on your site can I access AI for Blog Ideas/Titles?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "What if I don't have a company name?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "What is the best way to get my blog title noticed?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "Okay, I'm afraid to ask but... what is SEO?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "Why are you getting rejected shares?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "Which miners are supported?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        },
-        {
-            question: "What happens when there are no orders?",
-            answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
-        }
-    ];
+    // let faqs = [
+    //     {
+    //         question: "Where on your site can I access AI for Blog Ideas/Titles?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "What if I don't have a company name?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "What is the best way to get my blog title noticed?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "Okay, I'm afraid to ask but... what is SEO?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "Why are you getting rejected shares?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "Which miners are supported?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     },
+    //     {
+    //         question: "What happens when there are no orders?",
+    //         answer: "Morbi aliquam quis quam in luctus. Nullam tincidunt pulvinar imperdiet. Sed varius, diam vitae posuere semper, libero ex hendrerit nunc, ac sagittis eros metus ut diam."
+    //     }
+    // ];
+
+    export let data;
+    let faqs = data.faqs;
 
     let formData = {
         name: '',
@@ -52,22 +55,22 @@
                 <div class="faq-form-area wow fadeInDown">
                     <h5>Ask Any Question?</h5>
                     <p class="para">Your email address will not be published. Required fields are marked *</p>
-                    <form class="faq-form" on:submit|preventDefault={handleSubmit}>
+                    <form class="faq-form" method="POST" action="?/submitted">
                         <div class="form-inner">
                             <label>Your Full Name *</label>
-                            <input type="text" placeholder="Enter your name" bind:value={formData.name} required>
+                            <input type="text" name="name" placeholder="Enter your name" bind:value={formData.name} required>
                         </div>
                         <div class="form-inner">
                             <label>Your Email *</label>
-                            <input type="email" placeholder="Enter your email" bind:value={formData.email} required>
+                            <input type="email" name="email" placeholder="Enter your email" bind:value={formData.email} required>
                         </div>
                         <div class="form-inner">
                             <label>Subject *</label>
-                            <input type="text" placeholder="Subject" bind:value={formData.subject} required>
+                            <input type="text" name="subject" placeholder="Subject" bind:value={formData.subject} required>
                         </div>
                         <div class="form-inner">
                             <label>Your Message *</label>
-                            <textarea placeholder="Your message" rows="5" bind:value={formData.message} required></textarea>
+                            <textarea placeholder="Your message" name="message" rows="5" bind:value={formData.message} required></textarea>
                         </div>
                         <button type="submit" class="eg-btn btn--primary btn--md mt-1" style="border: none;">Send Now</button>
                     </form>

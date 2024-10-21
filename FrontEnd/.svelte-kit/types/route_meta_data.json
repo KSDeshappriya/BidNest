@@ -23,7 +23,9 @@
 		"src/routes/extra/try01/+page.ts",
 		"src/routes/extra/try01/+page.server.js"
 	],
-	"/faq": [],
+	"/faq": [
+		"src/routes/faq/+page.server.ts"
+	],
 	"/how-works": [],
 	"/live-auction": [
 		"src/routes/live-auction/+page.server.ts"

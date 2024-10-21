@@ -32,7 +32,7 @@ export const dictionary = {
 		"/dashboards/bidder": [~8],
 		"/dashboards/seller": [~9],
 		"/extra/try01": [~10],
-		"/faq": [11],
+		"/faq": [~11],
 		"/how-works": [12],
 		"/live-auction": [~13],
 		"/login": [14],
