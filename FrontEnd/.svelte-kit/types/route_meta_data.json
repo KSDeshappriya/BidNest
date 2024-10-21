@@ -21,10 +21,6 @@
 	"/dashboards/seller": [
 		"src/routes/dashboards/seller/+page.server.ts"
 	],
-	"/extra/try01": [
-		"src/routes/extra/try01/+page.ts",
-		"src/routes/extra/try01/+page.server.js"
-	],
 	"/faq": [
 		"src/routes/faq/+page.server.ts"
 	],
