@@ -304,21 +304,9 @@
                     <!-- svelte-ignore a11y-no-static-element-interactions -->
                     <span class="close" on:click={() => editItemModalVisible = false}>×</span>
                     <h2>Edit Auction</h2>
-                    <form on:submit|preventDefault={() => {
-                        updateItem({
-                            id: itemToEdit ? itemToEdit.id : 0,
-                            title: editItemTitle,
-                            description: editItemDescription,
-                            startingPrice: parseFloat(editItemStartingPrice),
-                            currentPrice: itemToEdit ? itemToEdit.currentPrice : 0,
-                            startTime: itemToEdit?.startTime || '',
-                            endTime: editItemEndTime,
-                            isAuctionLive: itemToEdit?.isAuctionLive || false,
-                            imagePath: itemToEdit?.imagePath || '',
-                        });
-                    }}>
+                    <form method="POST" action="?/editItem" enctype="multipart/form-data">
                         {#if itemToEdit}
-                            <input type="hidden" bind:value={itemToEdit.id} />
+                            <input type="hidden" name="hiddenId" bind:value={itemToEdit.id} />
                         {/if}
                         <div class="form-group">
                             <label for="editItemTitle">Title:</label>
@@ -338,7 +326,7 @@
                         </div>
                         <div class="form-group">
                             <label for="editItemImage">Image:</label>
-                            <input type="file" id="editItemImage" accept="image/*" name="imagePath" bind:value={editItemImagePath} required>
+                            <input type="file" id="editItemImage" accept="image/*" name="imageFile" bind:value={editItemImagePath} required>
                         </div>
                         <button type="submit" class="primary-btn">Update Auction</button>
                     </form>

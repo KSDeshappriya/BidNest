@@ -77,6 +77,64 @@ public class ItemsController : ControllerBase
         return Ok(new { item.Id, item.Title });
     }
 
+    // Edit Items
+    // PUT /api/items/{itemId}
+    [HttpPut("{itemId}")]
+    public async Task<IActionResult> EditItem(int itemId, ItemCreateDto dto)
+    {
+        // // Check if user is logged in
+        // var userId = HttpContext.Session.GetInt32("UserId");
+        // if (userId == null)
+        // {
+        //     return Unauthorized("You must be logged in to edit an item.");
+        // }
+
+        // Validate seller
+        var seller = await _context.Users.FindAsync(dto.SellerId);
+        if (seller == null || seller.Role != "Seller")
+        {
+            return BadRequest("Invalid seller");
+        }
+
+        // Check if an image file was provided
+        if (dto.ImageFile == null || dto.ImageFile.Length == 0)
+        {
+            return BadRequest("An image file is required.");
+        }
+
+        // Generate a unique filename for the image using the username and a timestamp
+        var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+        var imageFileName = $"{dto.Title}_{timestamp}{Path.GetExtension(dto.ImageFile.FileName)}";
+
+        // Define the path to save the image
+        var imagePath = Path.Combine("wwwroot/images/items", imageFileName);
+
+        // Save the image file to the file system
+        using (var stream = new FileStream(imagePath, FileMode.Create))
+        {
+            await dto.ImageFile.CopyToAsync(stream);
+        }
+
+        // Find the item
+        var item = await _context.Items.FindAsync(itemId);
+        if (item == null)
+        {
+            return BadRequest("Invalid item");
+        }
+
+        // Update the item
+        item.Title = dto.Title;
+        item.Description = dto.Description;
+        item.StartingPrice = dto.StartingPrice;
+        item.EndTime = dto.EndTime;
+        item.Seller = seller;
+        item.ImagePath = $"/images/items/{imageFileName}"; // Save the image path in the database
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { item.Id, item.Title });
+    }
+
     // GET All Items
     // GET /api/items
     [HttpGet]

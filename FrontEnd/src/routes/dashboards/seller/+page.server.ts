@@ -97,5 +97,58 @@ export const actions = {
         // Handle errors
         const errorData = await submitForm.json();
         return fail(400, { message: errorData.message || 'An error occurred while creating the item.' });
-    }
+    },
+
+    editItem: async ({ request }) => {
+        const formData = await request.formData();
+
+        // Get Form Data
+        const id = formData.get("hiddenId")?.toString();
+        const title = formData.get("title")?.toString();
+        const description = formData.get("description")?.toString();
+        const startingPrice = parseFloat(formData.get("startingPrice")?.toString() || '0');
+        const endTime = formData.get("endTime")?.toString();
+        const imageFile = formData.get('imageFile') as File;
+
+        // Validate required fields
+        if (!id || !title || !description || !startingPrice || !endTime) {
+            return fail(400, { message: 'All fields are required' });
+        }
+
+        // Create a FormData object
+        const nData = new FormData();
+        // nData.append('Id', id);
+        nData.append('Title', title);
+        nData.append('Description', description);
+        nData.append('StartingPrice', startingPrice.toString());
+        nData.append('EndTime', endTime);
+        nData.append('SellerId', '1'); 
+
+        if (imageFile) {
+            nData.append('ImageFile', imageFile);
+            nData.append('ImagePath', imageFile.name);
+        }
+
+        // Submit the form data
+        const submitForm = await fetch(`http://localhost:5170/api/Items/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': '*/*'
+            },
+            body: nData
+        });
+
+        console.log("submitForm: ", submitForm.status);
+
+        if (submitForm.ok) {
+            return {
+                status: 200,
+                message: 'Item updated successfully',
+            };
+        }
+
+        // Handle errors
+        const errorData = await submitForm.json();
+        return fail(400, { message: errorData.message || 'An error occurred while updating the item.' });
+    },
 };
