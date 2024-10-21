@@ -149,11 +149,11 @@
             </div>
             <div class="auction-content">
               <h4>
-                <a href={auction.link}>{auction.title}</a>
+                <a href={auction.link} rel="external">{auction.title}</a>
               </h4>
               <p>Bidding Price : <span>{auction.price}</span></p>
               <div class="auction-card-bttm">
-                <a href={auction.link} class="eg-btn btn--primary btn--sm">
+                <a href={auction.link} rel="external" class="eg-btn btn--primary btn--sm">
                   Place a Bid
                 </a>
                 <div class="share-area">

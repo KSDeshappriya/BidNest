@@ -7,11 +7,14 @@ export async function load({ params }) {
     const auctions = await response.json();
 
     const bidHistory = await fetch(`http://localhost:5170/api/items/${params.id}/itemBidHistory`); // Fetch item bid history
-    const itemBidHistory = await bidHistory.json();
+    let itemBidHistory = [];
+    if(bidHistory.ok) {
+        itemBidHistory = await bidHistory.json();
+    }
 
     return {
         item: auctions.filter((item: any) => item.id == params.id)[0],
-        itemBidHistory: itemBidHistory,
+        itemBidHistory: itemBidHistory.length === 0 ? {message: 'No bid history found'} : itemBidHistory, 
         auctions: auctions
             .filter((auction: any) => auction.isAuctionLive) // Filter only live auctions
             .filter((auction: any) => auction.id != params.id) // Filter out the current auction

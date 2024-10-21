@@ -44,7 +44,7 @@
                     <span>{slide.subtitle}</span>
                     <h1>{slide.title}</h1>
                     <p>{slide.description}</p>
-                    <a href={slide.link} class="eg-btn btn--primary btn--lg"
+                    <a href={slide.link} rel="external" class="eg-btn btn--primary btn--lg"
                       >Start Exploring</a
                     >
                   </div>
