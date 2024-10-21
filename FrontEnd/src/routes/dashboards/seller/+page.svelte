@@ -179,7 +179,7 @@
                     <div class="profile-header">
                         <h3>{userProfile.firstName} {userProfile.lastName}</h3>
                         <!-- svelte-ignore a11y-img-redundant-alt -->
-                        <img src={userProfile.profilePicturePath} alt="Profile Picture" class="img-fluid profile-picture" />
+                        <img src="http://localhost:5170{userProfile.profilePicturePath}" alt="Profile Picture" class="img-fluid profile-picture" />
                     </div>
                     <div class="card-body profile-info">
                         <p><i class="fas fa-user icon"></i><strong>Username:</strong> {userProfile.userName}</p>
