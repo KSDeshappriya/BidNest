@@ -11,8 +11,11 @@
 	"/blog-details": [],
 	"/blog": [],
 	"/contact": [],
+	"/dashboards/bidder": [
+		"src/routes/dashboards/bidder/+page.server.js"
+	],
 	"/dashboards/seller": [
-		"src/routes/dashboards/seller/+page.server.js"
+		"src/routes/dashboards/seller/+page.server.ts"
 	],
 	"/extra/try01": [
 		"src/routes/extra/try01/+page.ts",

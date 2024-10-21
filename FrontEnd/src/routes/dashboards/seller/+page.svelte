@@ -8,6 +8,9 @@
     $: items = data.items;
     $: userProfile = data.user;
 
+    // export let form;
+    // $: console.log(form);
+
     console.log(data);
 
     let currentSection = 'dashboard';
@@ -245,7 +248,9 @@
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <span class="close" on:click={() => addItemModalVisible = false}>×</span>
                     <h2>Add New Auction</h2>
-                    <form on:submit|preventDefault={() => {
+                    <form method="POST" enctype="multipart/form-data">
+                        <!-- 
+                        on:submit|preventDefault={() => {
                         const newItem = {
                             id: items.length + 1,
                             title: itemTitle,
@@ -259,26 +264,31 @@
                             // imagePath: "/images/placeholder.jpg", // Placeholder image
                         };
                         addItem(newItem);
-                    }}>
+                    }}
+                        -->
                         <div class="form-group">
                             <label for="itemTitle">Title:</label>
-                            <input type="text" bind:value={itemTitle} required />
+                            <input type="text"  name="title" bind:value={itemTitle} required />
                         </div>
                         <div class="form-group">
                             <label for="itemDescription">Description:</label>
-                            <textarea bind:value={itemDescription} required></textarea>
+                            <textarea name="description" bind:value={itemDescription} required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="itemStartingPrice">Starting Price:</label>
-                            <input type="number" bind:value={itemStartingPrice} required />
+                            <input type="number" name="startingPrice" bind:value={itemStartingPrice} required />
+                        </div>
+                        <div class="form-group">
+                            <label for="itemStartTime">Start Time:</label>
+                            <input type="datetime-local" name="startTime" required />
                         </div>
                         <div class="form-group">
                             <label for="itemEndTime">End Time:</label>
-                            <input type="datetime-local" bind:value={itemEndTime} required />
+                            <input type="datetime-local" name="endTime" bind:value={itemEndTime} required />
                         </div>
                         <div class="form-group">
                             <label for="itemImage">Image:</label>
-                            <input type="file" id="itemImage" accept="image/*" bind:value={itemImagePath} required>
+                            <input type="file" id="itemImage" name="imageFile" accept="image/*" bind:value={itemImagePath} required>
                         </div>
                         <button type="submit" class="primary-btn">Add Auction</button>
                     </form>
@@ -312,23 +322,23 @@
                         {/if}
                         <div class="form-group">
                             <label for="editItemTitle">Title:</label>
-                            <input type="text" bind:value={editItemTitle} required />
+                            <input type="text" name="title" bind:value={editItemTitle} required />
                         </div>
                         <div class="form-group">
                             <label for="editItemDescription">Description:</label>
-                            <textarea bind:value={editItemDescription} required></textarea>
+                            <textarea name="description" bind:value={editItemDescription} required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="editItemStartingPrice">Starting Price:</label>
-                            <input type="number" bind:value={editItemStartingPrice} required />
+                            <input type="number" name="startingPrice" bind:value={editItemStartingPrice} required />
                         </div>
                         <div class="form-group">
                             <label for="editItemEndTime">End Time:</label>
-                            <input type="datetime-local" bind:value={editItemEndTime} required />
+                            <input type="datetime-local" name="endTime" bind:value={editItemEndTime} required />
                         </div>
                         <div class="form-group">
                             <label for="editItemImage">Image:</label>
-                            <input type="file" id="editItemImage" accept="image/*" bind:value={editItemImagePath} required>
+                            <input type="file" id="editItemImage" accept="image/*" name="imagePath" bind:value={editItemImagePath} required>
                         </div>
                         <button type="submit" class="primary-btn">Update Auction</button>
                     </form>

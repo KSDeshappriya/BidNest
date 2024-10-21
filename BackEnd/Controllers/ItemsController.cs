@@ -22,12 +22,12 @@ public class ItemsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateItem([FromForm] ItemCreateDto dto)
     {
-        // Check if user is logged in
-        var userId = HttpContext.Session.GetInt32("UserId");
-        if (userId == null)
-        {
-            return Unauthorized("You must be logged in to create an item.");
-        }
+        // // Check if user is logged in
+        // var userId = HttpContext.Session.GetInt32("UserId");
+        // if (userId == null)
+        // {
+        //     return Unauthorized("You must be logged in to create an item.");
+        // }
 
         // Validate seller
         var seller = await _context.Users.FindAsync(dto.SellerId);
