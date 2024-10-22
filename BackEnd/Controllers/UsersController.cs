@@ -105,7 +105,16 @@ public class UsersController : ControllerBase
             return NotFound();
         }
 
-        return Ok(user);
+        return Ok(new 
+        {
+            user.UserName,
+            user.Email,
+            user.PhoneNumber,
+            user.Address,
+            user.DateOfBirth,
+            user.ProfilePicturePath,
+            user.Role
+        });
     }
 
     // PUT /api/users/{id}

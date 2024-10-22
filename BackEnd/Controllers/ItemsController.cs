@@ -332,36 +332,47 @@ public class ItemsController : ControllerBase
         return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
     }
 
-    // Get buyer's bid items history
-    // GET: api/items/{id}/buyerBidHistory
-    [HttpGet("{id}/buyerBidHistory")]
-    public IActionResult GetBuyerBidItems(int id)
+    // GET Buyer's All Biddings
+    // GET /api/items/{userId}/buyerBiddings
+    [HttpGet("{userId}/buyerBiddings")]
+    public async Task<IActionResult> GetBuyerBiddings(int userId)
     {
-        var buyer = _context.Users.Find(id);
+        var buyer = await _context.Users.FindAsync(userId);
         if (buyer == null || buyer.Role != "Buyer")
         {
             return BadRequest("Invalid buyer");
         }
 
-        var bids = _context.Bids
-            .Where(b => b.BidderId == id)
-            .Select(b => new
+        var items = await _context.Items
+            .Where(i => i.Bids.Any(b => b.BidderId == userId)) // Filter items based on bids from the specified user
+            .Select(i => new 
             {
-                b.Id,
-                b.Amount,
-                b.BidTime,
-                ItemId = b.Item.Id,
-                ItemName = b.Item.Title,
-                b.IsHighest
+                ItemId = i.Id,
+                ItemName = i.Title,
+                ItemStartingPrice = i.StartingPrice,
+                ItemCurrentPrice = i.Bids
+                    .Where(b => b.IsHighest)
+                    .Select(b => (decimal?)b.Amount)
+                    .FirstOrDefault() ?? i.StartingPrice,
+                ItemEndTime = i.EndTime,
+                ItemImagePath = i.ImagePath,
+                SellerName = i.Seller.UserName,
+                SellerId = i.Seller.Id,
+                LatestBid = i.Bids
+                    .Where(b => b.BidderId == userId)
+                    .OrderByDescending(b => b.BidTime) // Order by bid time to get the latest bid
+                    .Select(b => new 
+                    {
+                        b.Id,
+                        b.Amount,
+                        b.BidTime,
+                        b.IsHighest
+                    })
+                    .FirstOrDefault()
             })
-            .ToList();
+            .ToListAsync();
 
-        if (bids == null || bids.Count == 0)
-        {
-            return NotFound("No bids found for this buyer.");
-        }
-
-        return Ok(bids);
+        return Ok(items);
     }
 
 }
