@@ -349,7 +349,10 @@ public class ItemsController : ControllerBase
             {
                 ItemId = i.Id,
                 ItemName = i.Title,
+                i.IsAuctionLive,
+                ItemDescription = i.Description,
                 ItemStartingPrice = i.StartingPrice,
+                BidderId = userId,
                 ItemCurrentPrice = i.Bids
                     .Where(b => b.IsHighest)
                     .Select(b => (decimal?)b.Amount)

@@ -8,7 +8,26 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    let userId = 1;
+    // userId & items data from the server
+    export let data;
+    let items1 = data.items;
+    let items2 = data.items.map((i: any) => ({
+        id: i.itemId,
+        bidderId: i.bidderId, // Assuming you're getting the bidderId from somewhere else
+        title: i.itemName,
+        description: i.itemDescription || "No Description",
+        startingPrice: i.itemStartingPrice,
+        currentPrice: i.itemCurrentPrice,
+        endTime: i.itemEndTime,
+        imagePath: i.itemImagePath,
+        bidId: i.latestBid.id,
+        isAuctionLive: i.isAuctionLive,
+        isHighest: i.latestBid.isHighest
+    }));
+
+    let userId = Number(data.userId);
+    console.log(items2);
+    console.log(userId);
 
     // SideBard manage and show sections
     let currentSection = 'dashboard';
@@ -22,7 +41,7 @@
     });
 
     // My Currently Biddings: Dummy data for demonstration
-    let items = [
+    let items: Array<any> = items2 || [
         {
             id: 1,
             bidderId: 1,
@@ -199,6 +218,7 @@
                                 <form method="POST" action="?/removeBid" enctype="multipart/form-data">
                                     {#if item}
                                         <input type="hidden" name="id" value={item.id} />
+                                        <input type="hidden" name="bidId" value={item.bidId} />
                                     {/if}
                                     <button type="submit" class="primary-btn">Remove</button>
                                 </form>
@@ -211,7 +231,7 @@
             <div id="myItemsSection" class="dashboard-section">
                 <h3>My Won Items</h3>
                 <div id="myItemsList" class="item-list">
-                    {#each items.filter(item => !item.isAuctionLive && item.bidderId === userId && item.isHighest === 1) as item}
+                    {#each items.filter(item => !item.isAuctionLive && item.bidderId === userId && Number(item.isHighest) === 1) as item}
                         <div class="item">
                             <img src="http://localhost:5170{item.imagePath}" alt={item.title}>
                             <h4>{item.title}</h4>
@@ -228,7 +248,7 @@
             <div id="myItemsSection" class="dashboard-section">
                 <h3>My Lost Items</h3>
                 <div id="myItemsList" class="item-list">
-                    {#each items.filter(item => !item.isAuctionLive && item.bidderId === userId && item.isHighest === 0) as item}
+                    {#each items.filter(item => !item.isAuctionLive && item.bidderId === userId && Number(item.isHighest === 0)) as item}
                         <div class="item">
                             <img src="http://localhost:5170{item.imagePath}" alt={item.title}>
                             <h4>{item.title}</h4>

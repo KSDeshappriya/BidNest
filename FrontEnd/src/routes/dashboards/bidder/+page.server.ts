@@ -28,6 +28,7 @@ export async function load({ request, cookies}) {
         const data = await response.json();
         console.log("response: ", data);
         return {
+            userId: cookies.get('userId'),
             status: 200,
             items: data
         };
@@ -74,7 +75,7 @@ export const actions = {
         const hiddenId = formData.get("hiddenId")?.toString() || userId;
 
         // Submit the form data
-        const submitForm = await fetch(`http://localhost:5170/api/users/${hiddenId}`, {
+        const submitForm = await fetch(`http://localhost:5170/api/users/${userId}`, {
             method: 'PUT',
             headers: {
                 'Accept': '*/*'
@@ -95,17 +96,13 @@ export const actions = {
         const errorData = await submitForm.json();
         return fail(400, { message: errorData.message || 'An error occurred while updating the profile.' });
     },
-    removeBid: async ({ request }) => {
+    removeBid: async ({ request , cookies}) => {
         const formData = await request.formData();
         const itemId = formData.get('id')?.toString();
         const bidId = formData.get('bidId')?.toString();
 
-        if (!itemId || !bidId) {
-            return fail(400, { message: 'Missing itemId or bidId' });
-        }
-
         // Submit the form data
-        const submitForm = await fetch(`http://localhost:5170/api/items/${itemId}/deleteBid/${bidId}`, {
+        const submitForm = await fetch(`http://localhost:5170/api/items/${Number(itemId)}/deleteBid/${Number(bidId)}`, {
             method: 'DELETE',
             headers: {
                 'Accept': '*/*'
