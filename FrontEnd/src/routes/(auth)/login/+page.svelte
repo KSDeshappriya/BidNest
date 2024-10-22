@@ -14,7 +14,7 @@
 
     onMount(() => {
         if (role === "Buyer") {
-            goto("/dashboards/buyer");
+            goto("/dashboards/bidder");
         } else if (role === "Seller") {
             goto("/dashboards/seller");
         }

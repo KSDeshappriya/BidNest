@@ -14,8 +14,8 @@ public class Item
     public string ImagePath { get; set; } // Add this line
     public ICollection<Bid> Bids { get; set; }
 
-    public static implicit operator Item(Item v)
-    {
-        throw new NotImplementedException();
-    }
+    // public static implicit operator Item(Item v)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

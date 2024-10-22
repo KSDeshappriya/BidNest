@@ -302,6 +302,36 @@ public class ItemsController : ControllerBase
         return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
     }
 
+    // Delete Bids for an Item
+    // DELETE /api/items/{itemId}/deleteBid/{bidId}
+    [HttpDelete("{itemId}/deleteBid/{bidId}")]
+    public async Task<IActionResult> DeleteBid(int itemId, int bidId)
+    {
+        // // Check if user is logged in
+        // var userId = HttpContext.Session.GetInt32("UserId");
+        // if (userId == null)
+        // {
+        //     return Unauthorized("You must be logged in to delete a bid.");
+        // }
+
+        var item = await _context.Items.Include(i => i.Bids).FirstOrDefaultAsync(i => i.Id == itemId);
+        if (item == null)
+        {
+            return BadRequest("Invalid item");
+        }
+
+        var bid = await _context.Bids.FindAsync(bidId);
+        if (bid == null || bid.ItemId != itemId)
+        {
+            return BadRequest("Invalid bid");
+        }
+
+        _context.Bids.Remove(bid);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { bid.Id, bid.Amount, bid.BidderId, bid.ItemId });
+    }
+
     // Get buyer's bid items history
     // GET: api/items/{id}/buyerBidHistory
     [HttpGet("{id}/buyerBidHistory")]
