@@ -1,5 +1,7 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.server.ts"
+	],
 	"/about": [],
 	"/(auction)/auction-details/[id]": [
 		"src/routes/(auction)/auction-details/[id]/+page.server.ts"

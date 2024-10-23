@@ -22,7 +22,7 @@ export const nodes = [
 export const server_loads = [];
 
 export const dictionary = {
-		"/": [2],
+		"/": [~2],
 		"/about": [10],
 		"/(auction)/auction-details/[id]": [~3],
 		"/(blog)/blog-details": [9],

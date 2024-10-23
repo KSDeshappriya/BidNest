@@ -1,137 +1,302 @@
-<script>
- import { onMount } from 'svelte';
+<script lang="ts">
+    import { onMount } from "svelte";
+    export let data;
 
-let startDate = new Date('2024-09-03 08:23:55.947151'); // Replace with user input
-let endDate = new Date('2024-12-31 23:59:59.000000'); // Replace with user input
-let hours1 = 0, minutes1 = 0, seconds1 = 0;
-let hours2 = 0, minutes2 = 0, seconds2 = 0;
-let hours3 = 0, minutes3 = 0, seconds3 = 0;
-let hours4 = 0, minutes4 = 0, seconds4 = 0;
-let hours5 = 0, minutes5 = 0, seconds5 = 0;
-let hours6 = 0, minutes6 = 0, seconds6 = 0;
+    let auctions = data.auctions;
 
-function updateTimers() {
-  const now = new Date();
-  if (now >= endDate) {
-    // If the auction has ended, set all timers to 0
-    hours1 = minutes1 = seconds1 = 0;
-    hours2 = minutes2 = seconds2 = 0;
-    hours3 = minutes3 = seconds3 = 0;
-    hours4 = minutes4 = seconds4 = 0;
-    hours5 = minutes5 = seconds5 = 0;
-    hours6 = minutes6 = seconds6 = 0;
-    return;
-  }
+    // Pagination Variables
+    let currentPage = 1;
+    let itemsPerPage = 6;
+    let totalPages = Math.ceil(auctions.length / itemsPerPage);
 
-  // Calculate time remaining for each auction
-  const timeRemaining1 = endDate.getTime() - now.getTime();
-  const timeRemaining2 = endDate.getTime() - now.getTime();
-  const timeRemaining3 = endDate.getTime() - now.getTime();
-  const timeRemaining4 = endDate.getTime() - now.getTime();
-  const timeRemaining5 = endDate.getTime() - now.getTime();
-  const timeRemaining6 = endDate.getTime() - now.getTime();
+    // Function to calculate remaining time
+    function calculateTimeLeft(endDate: string) {
+        const auctionEndDate = new Date(endDate);
+        const now = new Date();
 
-  // Convert time remaining to hours, minutes, and seconds
-  hours1 = Math.floor(timeRemaining1 / (1000 * 60 * 60));
-  minutes1 = Math.floor((timeRemaining1 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds1 = Math.floor((timeRemaining1 % (1000 * 60)) / 1000);
+        // Get time components for both dates
+        let sec = now.getSeconds();
+        let min = now.getMinutes();
+        let hr = now.getHours();
+        let D = now.getDate();
+        let M = now.getMonth();
+        let Y = now.getFullYear();
 
-  hours2 = Math.floor(timeRemaining2 / (1000 * 60 * 60));
-  minutes2 = Math.floor((timeRemaining2 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds2 = Math.floor((timeRemaining2 % (1000 * 60)) / 1000);
+        let aSec = auctionEndDate.getSeconds();
+        let aMin = auctionEndDate.getMinutes();
+        let aHr = auctionEndDate.getHours();
+        let aD = auctionEndDate.getDate();
+        let aM = auctionEndDate.getMonth();
+        let aY = auctionEndDate.getFullYear();
 
-  hours3 = Math.floor(timeRemaining3 / (1000 * 60 * 60));
-  minutes3 = Math.floor((timeRemaining3 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds3 = Math.floor((timeRemaining3 % (1000 * 60)) / 1000);
+        // Adjust time components if current time is ahead of auction end time
+        if (aSec < sec) {
+            aSec += 60;
+            aMin -= 1;
+        }
+        if (aMin < min) {
+            aMin += 60;
+            aHr -= 1;
+        }
+        if (aHr < hr) {
+            aHr += 24;
+            aD -= 1;
+        }
+        if (aD < D) {
+            aD += 30;
+            aM -= 1;
+        }
+        if (aM < M) {
+            aM += 12;
+            aY -= 1;
+        }
 
-  hours4 = Math.floor(timeRemaining4 / (1000 * 60 * 60));
-  minutes4 = Math.floor((timeRemaining4 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds4 = Math.floor((timeRemaining4 % (1000 * 60)) / 1000);
+        // Calculate time differences
+        let seconds = aSec - sec;
+        let minutes = aMin - min;
+        let hours = aHr - hr;
+        let days = aD - D;
+        let months = aM - M;
+        let years = aY - Y;
 
-  hours5 = Math.floor(timeRemaining5 / (1000 * 60 * 60));
-  minutes5 = Math.floor((timeRemaining5 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds5 = Math.floor((timeRemaining5 % (1000 * 60)) / 1000);
+        // Return the time differences
+        return {
+            seconds,
+            minutes,
+            hours,
+            days,
+            months,
+            years,
+        };
+    }
 
-  hours6 = Math.floor(timeRemaining6 / (1000 * 60 * 60));
-  minutes6 = Math.floor((timeRemaining6 % (1000 * 60 * 60)) / (1000 * 60));
-  seconds6 = Math.floor((timeRemaining6 % (1000 * 60)) / 1000);
-}
+    // Timer updating logic
+    interface Auction {
+        endDate: string;
+        image: string;
+        author: string;
+        link: string;
+        title: string;
+        price: string;
+    }
 
-onMount(() => {
-  updateTimers();
-  const interval = setInterval(updateTimers, 1000);
-  return () => clearInterval(interval);
-});
+    let timers = auctions.map((auction: Auction, index: number) => ({
+        id: `auction-timer-${index}`, // Automatically generated ID
+        ...calculateTimeLeft(auction.endDate),
+    }));
+    onMount(() => {
+        const updateCountdowns = setInterval(() => {
+            timers = auctions.map((auction: Auction, index: number) => ({
+                id: `auction-timer-${index}`, // Automatically generated ID
+                ...calculateTimeLeft(auction.endDate),
+            }));
+        }, 1000);
+
+        return () => clearInterval(updateCountdowns); // Clear the interval when component unmounts
+    });
+
+    // Pagination helper function
+    function paginate(
+        auctions: Auction[],
+        currentPage: number,
+        itemsPerPage: number,
+    ) {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return auctions.slice(startIndex, endIndex);
+    }
+
+    let displayedAuctions = paginate(auctions, currentPage, itemsPerPage);
+
+    // Change page
+    function changePage(page: number) {
+        currentPage = page;
+        displayedAuctions = paginate(auctions, currentPage, itemsPerPage);
+    }
+
+    $: totalPages = Math.ceil(auctions.length / itemsPerPage);
 </script>
 
 <div class="live-auction pb-120">
     <!-- svelte-ignore a11y-img-redundant-alt -->
-    <img alt="image" src="/assets/images/bg/section-bg.png" class="img-fluid section-bg">
+    <img
+        alt="image"
+        src="/assets/images/bg/section-bg.png"
+        class="img-fluid section-bg"
+    />
     <div class="container position-relative">
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="image" src="/assets/images/bg/dotted1.png" class="dotted1">
+        <img alt="image" src="/assets/images/bg/dotted1.png" class="dotted1" />
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="image" src="/assets/images/bg/dotted1.png" class="dotted2">
+        <img alt="image" src="/assets/images/bg/dotted1.png" class="dotted2" />
 
         <div class="row d-flex justify-content-center">
             <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
                 <div class="section-title1">
                     <h2>Live Auction</h2>
                     <p class="mb-0">
-                        Explore on the world's best & largest Bidding marketplace with our beautiful Bidding products.
-                        We want to be a part of your smile, success and future growth.
+                        Explore on the world's best & largest Bidding
+                        marketplace with our beautiful Bidding products. We want
+                        to be a part of your smile, success and future growth.
                     </p>
                 </div>
             </div>
         </div>
-
         <div class="row gy-4 mb-60 d-flex justify-content-center">
-            {#each [
-                { img: 'live-auc1.png', hours: hours1, minutes: minutes1, seconds: seconds1, name: 'Brand New royal Enfield 250 CC For Sale', price: 85.9 },
-                { img: 'live-auc2.png', hours: hours2, minutes: minutes2, seconds: seconds2, name: 'Wedding Special Exclusive Couple Ring (S2022)', price: 85.9 },
-                { img: 'live-auc3.png', hours: hours3, minutes: minutes3, seconds: seconds3, name: 'Brand New Honda CBR 600 RR For Special Sale (2022)', price: 85.9 },
-                { img: 'live-auc4.png', hours: hours4, minutes: minutes4, seconds: seconds4, name: 'Toyota AIGID A Class Hatchback Sale (2017 - 2021)', price: 85.9 },
-                { img: 'live-auc5.png', hours: hours5, minutes: minutes5, seconds: seconds5, name: 'Havit HV-G61 USB Black Double Game Pad With Vibrat', price: 85.9 },
-                { img: 'live-auc6.png', hours: hours6, minutes: minutes6, seconds: seconds6, name: 'IPhone 11 Pro Max All Variants Available For Special Sale', price: 85.9 }
-            ] as auction}
-            <div class="col-lg-4 col-md-6 col-sm-10">
-                <div class="eg-card auction-card1">
-                    <div class="auction-img">
-                        <!-- svelte-ignore a11y-img-redundant-alt -->
-                        <img alt="image" src={`/assets/images/bg/${auction.img}`}>
-                        <div class="auction-timer">
-                            <div class="countdown">
-                                <h4><span>{auction.hours}</span>H : <span>{auction.minutes}</span>M : <span>{auction.seconds}</span>S</h4>
+            {#each displayedAuctions as auction, index}
+                <div class="col-lg-4 col-md-6 col-sm-10">
+                    <div class="eg-card auction-card1 wow fadeInDown">
+                        <div class="auction-img">
+                            <!-- svelte-ignore a11y-img-redundant-alt -->
+                            <img
+                                alt="image"
+                                src={auction.image}
+                                style="height: 200px; object-fit: cover;"
+                            />
+                            <div class="auction-timer">
+                                <div class="countdown">
+                                    <h4>
+                                        {#each timers as timer (timer.id)}
+                                            {#if timer.id === `auction-timer-${index}`}
+                                                <span
+                                                    >{timer.months
+                                                        .toString()
+                                                        .padStart(2, "0")}</span
+                                                >M :
+                                                <span
+                                                    >{timer.days
+                                                        .toString()
+                                                        .padStart(2, "0")}</span
+                                                >D<br />
+                                                <span
+                                                    >{timer.hours
+                                                        .toString()
+                                                        .padStart(2, "0")}</span
+                                                >H :
+                                                <span
+                                                    >{timer.minutes
+                                                        .toString()
+                                                        .padStart(2, "0")}</span
+                                                >M :
+                                                <span
+                                                    >{timer.seconds
+                                                        .toString()
+                                                        .padStart(2, "0")}</span
+                                                >S
+                                            {/if}
+                                        {/each}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="author-area">
+                                <div class="author-emo">
+                                    <!-- svelte-ignore a11y-img-redundant-alt -->
+                                    <img
+                                        alt="image"
+                                        src="/assets/images/icons/smile-emo.svg"
+                                    />
+                                </div>
+                                <div class="author-name">
+                                    <span>by {auction.author}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="auction-content">
-                        <h4><a  rel="external" href="/auction-details">{auction.name}</a></h4>
-                        <p>Bidding Price: <span>{auction.price}</span></p>
-                        <div class="auction-card-bttm">
-                            <a  rel="external" href="/auction-details" class="eg-btn btn--primary btn--sm">Place a Bid</a>
-                            <div class="share-area">
-                                <ul class="social-icons d-flex">
-                                    <li><a href="https://www.facebook.com/"><i class="bx bxl-facebook"></i></a></li>
-                                    <li><a href="https://www.twitter.com/"><i class="bx bxl-twitter"></i></a></li>
-                                    <li><a href="https://www.pinterest.com/"><i class="bx bxl-pinterest"></i></a></li>
-                                    <li><a href="https://www.instagram.com/"><i class="bx bxl-instagram"></i></a></li>
-                                </ul>
-                                <div>
-                                    <div class="share-btn"><i class="bx bxs-share-alt"></i></div>
+                        <div class="auction-content">
+                            <h4>
+                                <a href={auction.link} rel="external"
+                                    >{auction.title}</a
+                                >
+                            </h4>
+                            <p>Bidding Price : <span>{auction.price}</span></p>
+                            <div class="auction-card-bttm">
+                                <a
+                                    href={auction.link}
+                                    rel="external"
+                                    class="eg-btn btn--primary btn--sm"
+                                >
+                                    Place a Bid
+                                </a>
+                                <div class="share-area">
+                                    <ul class="social-icons d-flex">
+                                        <li>
+                                            <a href="https://www.facebook.com/"
+                                                ><i class="bx bxl-facebook"
+                                                ></i></a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="https://www.twitter.com/"
+                                                ><i class="bx bxl-twitter"
+                                                ></i></a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="https://www.pinterest.com/"
+                                                ><i class="bx bxl-pinterest"
+                                                ></i></a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="https://www.instagram.com/"
+                                                ><i class="bx bxl-instagram"
+                                                ></i></a
+                                            >
+                                        </li>
+                                    </ul>
+                                    <div>
+                                        <a href="#" class="share-btn"
+                                            ><i class="bx bxs-share-alt"></i></a
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {/each}
         </div>
 
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-4 text-center">
-                <a rel="external" href="/live-auction" class="eg-btn btn--primary btn--md mx-auto">View All</a>
-            </div>
+        <!-- Pagination -->
+        <div class="row">
+            <nav class="pagination-wrap">
+                <ul
+                    class="pagination d-flex justify-content-center gap-md-3 gap-2"
+                >
+                    <li class="page-item" class:disabled={currentPage === 1}>
+                        <a
+                            class="page-link"
+                            href="#"
+                            on:click={() => changePage(currentPage - 1)}
+                            tabindex="-1">Prev</a
+                        >
+                    </li>
+
+                    {#each Array(totalPages) as _, page (page)}
+                        <li
+                            class="page-item"
+                            class:active={page + 1 === currentPage}
+                        >
+                            <a
+                                class="page-link"
+                                href="#"
+                                on:click={() => changePage(page + 1)}
+                                >{page + 1}</a
+                            >
+                        </li>
+                    {/each}
+
+                    <li
+                        class="page-item"
+                        class:disabled={currentPage === totalPages}
+                    >
+                        <a
+                            class="page-link"
+                            href="#"
+                            on:click={() => changePage(currentPage + 1)}>Next</a
+                        >
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

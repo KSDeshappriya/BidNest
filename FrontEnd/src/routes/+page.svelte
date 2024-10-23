@@ -12,6 +12,8 @@
   import RecentNews from '$lib/components/homepage/RecentNewsSection.svelte';
   import Counter from '$lib/components/homepage/CounterSection.svelte';
   import Footer from '$lib/components/Footer.svelte';
+
+  import { page } from "$app/stores";
 </script>
 
 <!-- <Loader /> -->
@@ -20,7 +22,7 @@
 <Header />
 <Hero />
 <Category />
-<LiveAuction />
+<LiveAuction  data={$page.data}/>
 <UpcomingAuction />
 <Testimonial />
 <Sponsor />
