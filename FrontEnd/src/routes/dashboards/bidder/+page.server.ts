@@ -24,17 +24,28 @@ export async function load({ request, cookies}) {
         }
     });
 
-    if (response.ok) {
+    // GET: http://localhost:5170/api/users/{id}
+    const userProfile = await fetch(`http://localhost:5170/api/users/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Accept': '*/*'
+        }
+    });
+
+    if (response.ok && userProfile.ok) {
         const data = await response.json();
+        const profile = await userProfile.json();
         console.log("response: ", data);
         return {
             userId: cookies.get('userId'),
             status: 200,
-            items: data
+            items: data,
+            profile: profile
         };
     } else {
         // Handle errors
         console.log("response: ", response);
+        console.log("userProfile: ", userProfile);
         // const errorData = await response.json();
         // return fail(400, { message: errorData.message || 'An error occurred while loading the bidder biddings.' });
     }

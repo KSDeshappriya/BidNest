@@ -10,7 +10,7 @@
 
     // userId & items data from the server
     export let data;
-    let items1 = data.items;
+    let profile = data.profile;
     let items2 = data.items.map((i: any) => ({
         id: i.itemId,
         bidderId: i.bidderId, // Assuming you're getting the bidderId from somewhere else
@@ -143,14 +143,12 @@
     // User Profile Management & Edit Profile Process
     
     let userProfile = {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        userName: 'johndoe',
-        email: 'g@g.com',
-        phoneNumber: '1234567890',
-        address: '123 Main St, New York, NY 10001',
-        dateOfBirth: '1990-01-01',
+        id: userId,
+        userName: profile.userName,
+        email: profile.email,
+        phoneNumber: profile.phoneNumber,
+        address: profile.address,
+        dateOfBirth: profile.dateOfBirth,
         profilePicturePath: '/images/profile-picture.jpg'
     };
 
@@ -184,7 +182,7 @@
         </div>
         {#if currentSection === 'dashboard'}
             <div id="myItemsSection" class="dashboard-section">
-                <h1>Welcome, {userProfile.firstName}!</h1>
+                <h1>Welcome, {userProfile.userName}!</h1>
                 <h3>My Dashboard</h3>
 
                 <div id="myItemsList" class="item-list">
@@ -266,12 +264,12 @@
                 <h2 class="text-center mb-4">User Profile</h2>
                 <div class="card profile-card">
                     <div class="profile-header">
-                        <h3>{userProfile.firstName} {userProfile.lastName}</h3>
+                        <h3>Hi, {userProfile.userName} !</h3>
                         <!-- svelte-ignore a11y-img-redundant-alt -->
                         <img src="http://localhost:5170{userProfile.profilePicturePath}" alt="Profile Picture" class="img-fluid profile-picture" />
                     </div>
                     <div class="card-body profile-info">
-                        <p><i class="fas fa-user icon"></i><strong>Username:</strong> {userProfile.userName}</p>
+                        <p><i class="fas fa-user icon"></i><strong>Username:</strong>{userProfile.userName}</p>
                         <p><i class="fas fa-envelope icon"></i><strong>Email:</strong> {userProfile.email}</p>
                         <p><i class="fas fa-phone icon"></i><strong>Phone:</strong> {userProfile.phoneNumber}</p>
                         <p><i class="fas fa-map-marker-alt icon"></i><strong>Address:</strong> {userProfile.address}</p>
