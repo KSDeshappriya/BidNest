@@ -14,5 +14,6 @@
 			"./node_modules/@types",
 			"./@types" // Add this line if you created a custom types folder
 		]
-	}
+	},
+    "include": ["src/**/*"]
 }

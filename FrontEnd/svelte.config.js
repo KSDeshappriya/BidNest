@@ -1,5 +1,7 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { sveltekit } from '@sveltejs/kit/vite';
+import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -14,6 +16,12 @@ const config = {
 		adapter: adapter(),
 		paths: {
             base: '', // No subdirectory, hosted at the root
+        },
+		alias: {
+			$types: path.resolve('./src/routes/$types.d.ts'),
+            $lib: path.resolve('./src/lib'),
+            $stores: path.resolve('./src/lib/stores'),
+            // Add other aliases as needed
         }
 	}
 };

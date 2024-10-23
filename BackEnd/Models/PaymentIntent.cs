@@ -4,6 +4,7 @@ public class PaymentIntentCreateRequest
 {
     public int ItemId { get; set; }
     public int BidId { get; set; }
+    public long Amount { get; set; }
     public string Currency { get; set; } = "usd";
 }
 

@@ -15,20 +15,34 @@ public class PaymentController : ControllerBase
 {
     private readonly IStripeService _stripeService;
     private readonly IConfiguration _configuration; // Add this line
+    private readonly IBidService _bidService; // Add this line
 
-    public PaymentController(IStripeService stripeService, IConfiguration configuration) // Add configuration parameter
+    public PaymentController(IStripeService stripeService, IConfiguration configuration, IBidService bidService) // Add configuration parameter
     {
         _stripeService = stripeService;
         _configuration = configuration; // Add this line
+        _bidService = bidService; // Add this line
     }
 
     // POST: /api/payment/create-payment-intent
     [HttpPost("create-payment-intent")]
     public async Task<ActionResult<PaymentIntentResponse>> CreatePaymentIntent(
-        PaymentIntentCreateRequest request)
+    PaymentIntentCreateRequest request)
     {
         try
         {
+            // Validate that the amount matches the bid amount
+            var bid = await _bidService.GetBidById(request.BidId);
+            if (bid == null)
+            {
+                return NotFound(new { error = "Bid not found" });
+            }
+
+            if (bid.Amount != request.Amount)
+            {
+                return BadRequest(new { error = "Invalid payment amount" });
+            }
+
             var response = await _stripeService.CreatePaymentIntent(request);
             return Ok(response);
         }

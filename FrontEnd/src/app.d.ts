@@ -17,3 +17,15 @@ declare global {
 }
 
 export {};
+
+export interface BidDetails {
+    amount: number; // Amount in cents
+    itemTitle?: string; // Optional item title
+}
+
+export interface PageData {
+    bidDetails: BidDetails;
+    paymentIntent: {
+        clientSecret: string; // Client secret for Stripe payment
+    };
+}
