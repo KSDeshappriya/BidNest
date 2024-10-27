@@ -11,7 +11,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/kit": "^2.7.2",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/node": "^22.7.7",
 		"svelte": "^4.2.7",
@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@stripe/stripe-js": "^4.9.0",
 		"axios": "^1.7.7",
-		"cookie-parser": "^1.4.7"
+		"cookie-parser": "^1.4.7",
+		"svelte-routing": "^2.13.0"
 	}
 }

@@ -124,7 +124,7 @@
         src="/assets/images/bg/section-bg.png"
         class="img-fluid section-bg"
     />
-    <div class="container position-relative">
+    <div class="container position-relative"  id="#liveAuction">
         <!-- svelte-ignore a11y-img-redundant-alt -->
         <img alt="image" src="/assets/images/bg/dotted1.png" class="dotted1" />
         <!-- svelte-ignore a11y-img-redundant-alt -->
@@ -265,7 +265,7 @@
                     <li class="page-item" class:disabled={currentPage === 1}>
                         <a
                             class="page-link"
-                            href="#"
+                            href="#liveAuction"
                             on:click={() => changePage(currentPage - 1)}
                             tabindex="-1">Prev</a
                         >
@@ -278,7 +278,7 @@
                         >
                             <a
                                 class="page-link"
-                                href="#"
+                                href="#liveAuction"
                                 on:click={() => changePage(page + 1)}
                                 >{page + 1}</a
                             >
@@ -291,7 +291,7 @@
                     >
                         <a
                             class="page-link"
-                            href="#"
+                            href="#liveAuction"
                             on:click={() => changePage(currentPage + 1)}>Next</a
                         >
                     </li>
