@@ -33,10 +33,11 @@
 	"/(auth)/login": [
 		"src/routes/(auth)/login/+page.server.ts"
 	],
-	"/(payment)/payment-success": [],
 	"/(auction)/payments": [],
 	"/(payment)/payment/[bidId]": [
-		"src/routes/(payment)/payment/[bidId]/+page.ts"
+		"src/routes/(payment)/payment/[bidId]/+page.ts",
+		"src/routes/(payment)/payment/[bidId]/+page.server.ts"
 	],
-	"/(auth)/signup": []
+	"/(auth)/signup": [],
+	"/(payment)/success": []
 }

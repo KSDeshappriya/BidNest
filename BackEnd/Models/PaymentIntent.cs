@@ -3,8 +3,9 @@ namespace BidNest.Models;
 public class PaymentIntentCreateRequest
 {
     public int ItemId { get; set; }
-    public int BidId { get; set; }
-    public long Amount { get; set; }
+    public string BidId { get; set; }
+    public string UserId { get; set; }
+    public decimal Amount { get; set; }
     public string Currency { get; set; } = "usd";
 }
 

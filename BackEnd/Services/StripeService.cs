@@ -6,7 +6,7 @@ namespace BidNest.Services;
 
 public interface IStripeService
 {
-    Task<PaymentIntentResponse> CreatePaymentIntent(PaymentIntentCreateRequest request);
+    Task<PaymentIntentResponse> CreatePaymentIntent(PaymentIntentCreateRequest request, Dictionary<string, string> metadata);
     Task<bool> ConfirmPayment(string paymentIntentId);
 }
 
@@ -22,24 +22,14 @@ public class StripeService : IStripeService
         StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
     }
 
-    public async Task<PaymentIntentResponse> CreatePaymentIntent(PaymentIntentCreateRequest request)
+    public async Task<PaymentIntentResponse> CreatePaymentIntent(PaymentIntentCreateRequest request, Dictionary<string, string> metadata)
     {
-        var bid = await _context.Bids
-            .Include(b => b.Item)
-            .FirstOrDefaultAsync(b => b.Id == request.BidId);
-
-        if (bid == null)
-            throw new Exception("Bid not found");
-
+        // No need to fetch bid information here, as the amount is passed in the request
         var options = new PaymentIntentCreateOptions
         {
-            Amount = Convert.ToInt64(bid.Amount * 100), // Stripe uses cents
-            Currency = request.Currency,
-            Metadata = new Dictionary<string, string>
-            {
-                { "ItemId", bid.ItemId.ToString() },
-                { "BidId", bid.Id.ToString() }
-            }
+            Amount = (long)(request.Amount * 100), // Convert decimal to long by multiplying by 100 and casting
+            Currency = "usd", // Fixed currency to USD
+            Metadata = metadata // Attach metadata here
         };
 
         var service = new PaymentIntentService();
@@ -47,8 +37,7 @@ public class StripeService : IStripeService
 
         return new PaymentIntentResponse
         {
-            ClientSecret = paymentIntent.ClientSecret,
-            PaymentIntentId = paymentIntent.Id
+            ClientSecret = paymentIntent.ClientSecret
         };
     }
 
@@ -59,21 +48,31 @@ public class StripeService : IStripeService
 
         if (paymentIntent.Status == "succeeded")
         {
-            // Create payment record
-            var payment = new Payment
+            // Ensure BidId exists in metadata before parsing
+            if (paymentIntent.Metadata.ContainsKey("BidId"))
             {
-                Amount = paymentIntent.Amount / 100m,
-                PaymentTime = DateTime.UtcNow,
-                PayerId = int.Parse(paymentIntent.Metadata["BidId"]),
-                ItemId = int.Parse(paymentIntent.Metadata["ItemId"])
-            };
+                var payment = new Payment
+                {
+                    Amount = paymentIntent.Amount / 100m,
+                    PaymentTime = DateTime.UtcNow,
+                    PayerId = int.Parse(paymentIntent.Metadata["BidId"])
+                    // ItemId = int.Parse(paymentIntent.Metadata["ItemId"])
+                };
 
-            await _context.Payments.AddAsync(payment);
-            await _context.SaveChangesAsync();
+                await _context.Payments.AddAsync(payment);
+                await _context.SaveChangesAsync();
 
-            return true;
+                return true;
+            }
+            else
+            {
+                // Handle the case where BidId is missing in metadata
+                Console.WriteLine("BidId metadata is missing in payment intent.");
+                return false;
+            }
         }
 
         return false;
     }
+
 }

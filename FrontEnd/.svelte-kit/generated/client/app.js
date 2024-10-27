@@ -36,10 +36,10 @@ export const dictionary = {
 		"/how-works": [17],
 		"/(auction)/live-auction": [~4],
 		"/(auth)/login": [~6],
-		"/(payment)/payment-success": [11],
 		"/(auction)/payments": [5],
-		"/(payment)/payment/[bidId]": [10],
-		"/(auth)/signup": [7]
+		"/(payment)/payment/[bidId]": [~10],
+		"/(auth)/signup": [7],
+		"/(payment)/success": [11]
 	};
 
 export const hooks = {

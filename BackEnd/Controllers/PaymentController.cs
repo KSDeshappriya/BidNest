@@ -26,13 +26,16 @@ public class PaymentController : ControllerBase
 
     // POST: /api/payment/create-payment-intent
     [HttpPost("create-payment-intent")]
-    public async Task<ActionResult<PaymentIntentResponse>> CreatePaymentIntent(
-    PaymentIntentCreateRequest request)
+    public async Task<ActionResult<PaymentIntentResponse>> CreatePaymentIntent(PaymentIntentCreateRequest request)
     {
         try
         {
             // Validate that the amount matches the bid amount
-            var bid = await _bidService.GetBidById(request.BidId);
+            if (!int.TryParse(request.BidId, out int bidId))
+            {
+                return BadRequest(new { error = "Invalid BidId format" });
+            }
+            var bid = await _bidService.GetBidById(bidId);
             if (bid == null)
             {
                 return NotFound(new { error = "Bid not found" });
@@ -43,14 +46,37 @@ public class PaymentController : ControllerBase
                 return BadRequest(new { error = "Invalid payment amount" });
             }
 
-            var response = await _stripeService.CreatePaymentIntent(request);
-            return Ok(response);
+            // Add metadata to associate the payment with a bid and user
+            var metadata = new Dictionary<string, string>
+            {
+                { "BidId", request.BidId }
+                // { "UserId", request.UserId }
+            };
+
+            // Pass metadata to the Stripe service
+            var response = await _stripeService.CreatePaymentIntent(request, metadata);
+        
+            if (response == null)
+            {
+                return BadRequest(new { error = "Failed to create payment intent" });
+            }
+            
+            return Ok(new { clientSecret = response.ClientSecret });
         }
         catch (Exception ex)
         {
             return BadRequest(new { error = ex.Message });
         }
+        // catch (StripeException stripeEx)
+        // {
+        //     return BadRequest(new { error = $"Stripe error: {stripeEx.StripeError.Message}" });
+        // }
+        // catch (Exception ex)
+        // {
+        //     return StatusCode(500, new { error = "An error occurred while creating the payment intent" });
+        // }
     }
+
 
     // Add this method
     // This method will handle the Stripe webhook
@@ -74,18 +100,35 @@ public class PaymentController : ControllerBase
 
             if (stripeEvent.Type == "payment_intent.succeeded")
             {
-                var paymentIntent = stripeEvent.Data.Object as Stripe.PaymentIntent;
+                var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
                 if (paymentIntent != null)
                 {
                     await _stripeService.ConfirmPayment(paymentIntent.Id);
+                    Console.WriteLine($"Payment confirmed for PaymentIntent ID: {paymentIntent.Id}");
+                }
+            }
+            else if (stripeEvent.Type == "payment_intent.payment_failed")
+            {
+                // Handle failed payment here, e.g., log the failure or update bid status
+                var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
+                if (paymentIntent != null)
+                {
+                    Console.WriteLine($"Payment failed for PaymentIntent ID: {paymentIntent.Id}");
                 }
             }
 
             return Ok();
         }
-        catch (StripeException e)
+        catch (StripeException stripeEx)
         {
-            return BadRequest(new { error = e.Message });
+            // Handle Stripe-specific error
+            return BadRequest(new { error = $"Stripe error: {stripeEx.Message}" });
+        }
+        catch (Exception ex)
+        {
+            // Handle any general exceptions
+            return StatusCode(500, new { error = "Webhook processing failed." });
         }
     }
+
 }

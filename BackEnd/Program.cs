@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register the background service
 builder.Services.AddHostedService<AuctionStatusUpdater>();
 builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
