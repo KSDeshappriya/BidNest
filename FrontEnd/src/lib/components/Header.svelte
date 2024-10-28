@@ -98,7 +98,7 @@
     </div>
 
     <div class="eg-btn btn--primary header-btn">
-      <a rel="external" href="/dashboard">My Account</a>
+      <a rel="external" href="/login">My Account</a>
     </div>
 
     <button

@@ -238,6 +238,7 @@
                             <p>Final Price: ${item.currentPrice}</p>
                             <p>End Time: {new Date(item.endTime).toLocaleString()}</p>
                             <span class="live-indicator inactive">Ended</span>
+                            <a type="submit" class="primary-btn" style="background-color: brown;" rel="external" href="/payment/{item.bidId}">pay</a>
                         </div>
                     {/each}
                 </div>

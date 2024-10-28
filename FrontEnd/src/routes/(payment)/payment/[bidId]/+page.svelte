@@ -8,8 +8,15 @@
     const stripePromise = loadStripe("pk_test_51QEUnJGCRwvvwSv0aiMWcgRzn4XzhevKjyAuehTkTWSMCgWeEdIUTZpj4SJkfgIqoHWDpA1pwiXK0rVknwkBZ8AK00juz8IqgE");
 
     const amount = writable(0);
-    let bidId = 8;
-    let userId = "2"; // Set your user ID here as per backend requirements
+    // let bidId = 5;
+    import { page } from "$app/stores";
+    let bidId = $page.params.bidId;
+    import * as cookie from "cookie";
+    let userId = "";
+    onMount(() => {
+        userId = cookie.parse(document.cookie).userId || '';
+    });
+    // let userId = cookie.parse(document.cookie).userId || ''; // Set your user ID here as per backend requirements
     let elements: StripeElements;
     let card: StripeCardElement;
     let message = writable("");
@@ -53,7 +60,7 @@
         isProcessing.set(true); // Disable button during processing
 
         const payload = {
-            itemId: 3, // Specify the correct ItemId
+            itemId: 5, // Specify the correct ItemId
             bidId: String(bidId),
             userId: userId,
             amount: Number($amount),
