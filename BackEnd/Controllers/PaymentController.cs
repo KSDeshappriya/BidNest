@@ -14,6 +14,7 @@ namespace BidNest.Controllers;
 public class PaymentController : ControllerBase
 {
     private readonly IStripeService _stripeService;
+    private readonly ApplicationDbContext _context; // Add this line
     private readonly IConfiguration _configuration; // Add this line
     private readonly IBidService _bidService; // Add this line
 
@@ -55,26 +56,18 @@ public class PaymentController : ControllerBase
 
             // Pass metadata to the Stripe service
             var response = await _stripeService.CreatePaymentIntent(request, metadata);
-        
+
             if (response == null)
             {
                 return BadRequest(new { error = "Failed to create payment intent" });
             }
-            
+
             return Ok(new { clientSecret = response.ClientSecret });
         }
         catch (Exception ex)
         {
             return BadRequest(new { error = ex.Message });
         }
-        // catch (StripeException stripeEx)
-        // {
-        //     return BadRequest(new { error = $"Stripe error: {stripeEx.StripeError.Message}" });
-        // }
-        // catch (Exception ex)
-        // {
-        //     return StatusCode(500, new { error = "An error occurred while creating the payment intent" });
-        // }
     }
 
 
@@ -103,17 +96,34 @@ public class PaymentController : ControllerBase
                 var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
                 if (paymentIntent != null)
                 {
-                    await _stripeService.ConfirmPayment(paymentIntent.Id);
-                    Console.WriteLine($"Payment confirmed for PaymentIntent ID: {paymentIntent.Id}");
+                    // Extract metadata and amount details
+                    var amount = paymentIntent.Amount / 100m; // Convert amount to dollars
+                    var bidId = int.Parse(paymentIntent.Metadata["BidId"]); // Ensure BidId is an integer
+
+                    // Create a new payment record
+                    var payment = new Payment
+                    {
+                        Amount = amount,
+                        PaymentTime = DateTime.UtcNow,
+                        StripePaymentIntentId = paymentIntent.Id, // Store Stripe payment intent ID
+                        BidId = bidId // Store the associated Bid ID
+                    };
+
+                    // Store payment details in the database
+                    await _context.Payments.AddAsync(payment);
+                    await _context.SaveChangesAsync();
+
+                    Console.WriteLine($"Payment confirmed and stored for PaymentIntent ID: {paymentIntent.Id}");
                 }
             }
+
             else if (stripeEvent.Type == "payment_intent.payment_failed")
             {
-                // Handle failed payment here, e.g., log the failure or update bid status
                 var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
                 if (paymentIntent != null)
                 {
                     Console.WriteLine($"Payment failed for PaymentIntent ID: {paymentIntent.Id}");
+                    // Handle failed payment, e.g., log or notify the user
                 }
             }
 
@@ -121,14 +131,13 @@ public class PaymentController : ControllerBase
         }
         catch (StripeException stripeEx)
         {
-            // Handle Stripe-specific error
             return BadRequest(new { error = $"Stripe error: {stripeEx.Message}" });
         }
         catch (Exception ex)
         {
-            // Handle any general exceptions
             return StatusCode(500, new { error = "Webhook processing failed." });
         }
     }
+
 
 }

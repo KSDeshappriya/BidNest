@@ -40,7 +40,7 @@
     };
 </script> -->
 
-<script lang="ts">
+<!-- <script lang="ts">
     let firstName = "";
     let lastName = "";
     let email = "";
@@ -85,7 +85,7 @@
             console.error(error);
         }
     };
-</script>
+</script> -->
 
 <div class="signup-section pt-120 pb-120">
     <img
@@ -114,32 +114,21 @@
                             >
                         </p>
                     </div>
-                    <form on:submit={handleSubmit} class="w-100">
-                        <div class="row">
-                            <div class="col-md-6">
+                    <form method="POST" action="?/submit" class="w-100" enctype="multipart/form-data">
+                            <div class="col-md-12">
                                 <div class="form-inner">
-                                    <label>First Name *</label>
+                                    <label>User Name *</label>
                                     <input
                                         type="text"
-                                        placeholder="First Name"
-                                        bind:value={firstName}
-                                    />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-inner">
-                                    <label>Last Name *</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        bind:value={lastName}
+                                        placeholder="UserName"
+                                        name="userName"
                                     />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-inner">
                                     <label>Role *</label>
-                                    <select>
+                                    <select name="role">
                                         <option value="0">Select Role</option>
                                         <option value="Buyer">Buyer</option>
                                         <option value="Seller">Seller</option>
@@ -151,7 +140,7 @@
                                         <input
                                             type="email"
                                             placeholder="Enter Your Email"
-                                            bind:value={email}
+                                            name="email"
                                         />
                                     </div>
                                 </div>
@@ -163,7 +152,6 @@
                                             name="password"
                                             id="password"
                                             placeholder="Create A Password"
-                                            bind:value={password}
                                         />
                                         <i
                                             class="bi bi-eye-slash"
@@ -172,6 +160,47 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
+                                    <div class="form-inner">
+                                        <label>Phone Number *</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Phone Number"
+                                            name="phoneNumber"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-inner">
+                                        <label>Address *</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Address"
+                                            name="address"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-inner">
+                                        <label>Date of Birth *</label>
+                                        <input
+                                            type="date"
+                                            placeholder="Date of Birth"
+                                            name="dateOfBirth"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-inner">
+                                        <label>Profile Picture</label>
+                                        <input
+                                            type="file"
+                                            name="profilePicture"
+                                            accept="image/*"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
                                     <div
                                         class="form-agreement form-inner d-flex justify-content-between flex-wrap"
                                     >
@@ -179,7 +208,7 @@
                                             <input
                                                 type="checkbox"
                                                 id="html"
-                                                bind:checked={agreeToTerms}
+                                                name="agreeToTerms"
                                             />
                                             <label for="html"
                                                 >I agree to the Terms & Policy</label
@@ -189,7 +218,7 @@
                                 </div>
                             </div>
                             <button class="account-btn">Create Account</button>
-                        </div>
+
                     </form>
                     <div class="alternate-signup-box">
                         <h6>or signup WITH</h6>

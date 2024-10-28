@@ -28,11 +28,12 @@ public class UsersController : ControllerBase
             return BadRequest("An image file is required.");
         }
 
-        // Generate a unique filename for the image
-        var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.ImageFile.FileName);
+        // Generate a unique filename for the image using the username and a timestamp
+        var timestamp = DateTime.UtcNow.ToString("yyyyMMdd");
+        var imageFileName = $"{dto.UserName}_{timestamp}{Path.GetExtension(dto.ImageFile.FileName)}";
 
         // Define the path to save the image
-        var imagePath = Path.Combine("wwwroot/images/profile", imageFileName);
+        var imagePath = Path.Combine("wwwroot/images/profiles", imageFileName);
 
         // Save the image file to the file system
         using (var stream = new FileStream(imagePath, FileMode.Create))
@@ -48,7 +49,7 @@ public class UsersController : ControllerBase
             PhoneNumber = dto.PhoneNumber,
             Address = dto.Address,
             DateOfBirth = dto.DateOfBirth,
-            ProfilePicturePath = $"/images/profile/{imageFileName}", // Store the relative path
+            ProfilePicturePath = $"/images/profiles/{imageFileName}", // Store the relative path
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
             Role = dto.Role
         };

@@ -10,9 +10,10 @@ public class UserRegisterDto
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string ProfilePicturePath { get; set; }
+    public string Role { get; set; }
     
     [NotMapped] // Tell EF Core to ignore this property
     public IFormFile ImageFile { get; set; }
-    public string Role { get; set; }
+
+    public string ProfilePicturePath { get; set; }
 }

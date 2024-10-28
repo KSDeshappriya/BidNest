@@ -2,9 +2,9 @@
 
 import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ request }) {
+export async function load({ request, cookies }) {
     try {
-        let userId = 1;
+        let userId = cookies.get('userId');
         // Forward the GET request to your .NET 8 API
         const apiResponse = await fetch(`http://localhost:5170/api/items/${userId}/sellerItems`, {
             method: 'GET' // Simply retrieve the auction items
