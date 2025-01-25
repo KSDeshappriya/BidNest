@@ -13,3 +13,9 @@ coverage/
 .idea/
 .vscode/
 .DS_Store
+
+# Extra
+HTML
+Extra
+AutomaticallyRoute.md
+src/routes/extra

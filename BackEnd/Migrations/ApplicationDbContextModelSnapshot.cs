@@ -61,9 +61,12 @@ namespace BidNest.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("Comments")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateGiven")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -97,6 +100,10 @@ namespace BidNest.Migrations
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsAuctionLive")
                         .HasColumnType("tinyint(1)");

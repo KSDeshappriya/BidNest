@@ -1,0 +1,46 @@
+{
+	"/": [
+		"src/routes/+page.server.ts"
+	],
+	"/about": [],
+	"/(auction)/auction-details/[id]": [
+		"src/routes/(auction)/auction-details/[id]/+page.server.ts"
+	],
+	"/(auth)/auth/login": [
+		"src/routes/(auth)/auth/login/+server.js"
+	],
+	"/(auth)/auth/register": [
+		"src/routes/(auth)/auth/register/+server.js"
+	],
+	"/(blog)/blog-details": [],
+	"/(blog)/blog": [],
+	"/contact": [
+		"src/routes/contact/+page.server.ts"
+	],
+	"/dashboards/bidder": [
+		"src/routes/dashboards/bidder/+page.server.ts"
+	],
+	"/dashboards/seller": [
+		"src/routes/dashboards/seller/+page.server.ts"
+	],
+	"/faq": [
+		"src/routes/faq/+page.server.ts"
+	],
+	"/how-works": [],
+	"/(auction)/live-auction": [
+		"src/routes/(auction)/live-auction/+page.server.ts"
+	],
+	"/(auth)/login": [
+		"src/routes/(auth)/login/+page.server.ts"
+	],
+	"/(auction)/payments": [],
+	"/(payment)/payment/confirmation": [],
+	"/(payment)/payment/[bidId]": [
+		"src/routes/(payment)/payment/[bidId]/+page.ts",
+		"src/routes/(payment)/payment/[bidId]/+page.server.ts"
+	],
+	"/(auth)/signup": [
+		"src/routes/(auth)/signup/+page.server.ts"
+	],
+	"/(payment)/success": []
+}

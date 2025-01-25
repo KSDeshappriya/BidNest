@@ -11,6 +11,7 @@ obj/
 
 # ASP.NET Scaffolding
 .scaffolding
+CodeTemplates
 
 # Visual Studio Code
 .vscode/

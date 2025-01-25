@@ -7,6 +7,7 @@ public class Payment
     public DateTime PaymentTime { get; set; }
     public User Payer { get; set; }
     public int PayerId { get; set; }
-    public Item Item { get; set; }
     public int ItemId { get; set; }
+    public string StripePaymentIntentId { get; set; }
+    public int BidId { get; set; }
 }
